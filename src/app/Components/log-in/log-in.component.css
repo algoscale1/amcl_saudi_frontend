@@ -1,0 +1,61 @@
+.register-page{
+    background-image: url('../../../assets/images/logIn-back.png');
+    background-size: cover;
+    background-attachment: fixed;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    min-height: 100%;
+    min-height: -webkit-fill-available;
+}
+
+.register-body{
+    width: 40%;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 20px 50px 40px 50px;
+    background: #DEDEDE;
+}
+
+.login-data{
+  width: 100%;
+}
+
+.title{
+    font-weight: bold;
+    text-align: center;
+    margin: 20px;
+    margin-right: 35px;
+}
+
+.mat-form-field{
+    width: -webkit-fill-available;
+}
+
+.logInbtn button{
+    width: 100%;
+    margin-top: 15px;
+}
+
+.signUpbtn{
+    color: white;
+    justify-content: center;
+    display: flex;
+    margin-top:6%;
+}
+
+.signUpbtn a {
+    width: 100%;
+    text-align: center;
+}
+
+@media(max-width:767px){
+    .register-body{
+        width: 100%;
+        padding: 30px;
+        display: block;
+    }
+}

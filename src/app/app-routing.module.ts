@@ -25,8 +25,8 @@ const routes: Routes = [
       { path: 'review/:id', component: PatientReviewComponent },
       { path: 'review/:id/generate_report', component: GenerateReportComponent },
       { path: 'tools', component: ResourcesComponent },
-      { path: 'account', component: AccountComponent }],
-    // ], canActivateChild: [AuthGuard]
+      { path: 'account', component: AccountComponent }
+    ], canActivateChild: [AuthGuard]
   }
 ];
 

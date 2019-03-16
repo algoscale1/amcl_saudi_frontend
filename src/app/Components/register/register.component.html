@@ -1,3 +1,44 @@
-<p>
-  register works!
-</p>
+<div class="register-page">
+  <div class="register-body">
+    <h2 class="title">Register with Us</h2>
+    <div class="login-data">
+      <form [formGroup]="registerForm">
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field>
+              <input matInput type="text" placeholder="Type your Name" formControlName="name">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <input matInput type="number" placeholder="Phone Number (رقم الهاتف)" formControlName="phone">
+            </mat-form-field>
+          </div>
+        </div>
+        <mat-form-field>
+          <input matInput type="email" placeholder="Email Address (اسم المستخدم)" formControlName="email">
+        </mat-form-field>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field>
+              <input matInput type="password" placeholder="Password (كلمه السر)" formControlName="password">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <input matInput type="password" placeholder="Confirm Password (كلمه السر)" formControlName="cPassword">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="logInbtn">
+          <button class="btn btn-success" [disabled]="!registerForm.valid" (click)="onRegister()">Register
+            (التسجيل)</button>
+        </div>
+      </form>
+    </div>
+    <div class="signUpbtn col-md-12">
+      Already have an account?&nbsp;<a routerLink="/logIn">Log In (تسجيل
+        الدخول)</a>
+    </div>
+  </div>
+</div>

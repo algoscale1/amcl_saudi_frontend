@@ -1,3 +1,25 @@
-<p>
-  losfdgg-in wrytuykorks!?
-</p>
+<div class="register-page">
+  <div class="register-body">
+    <h2 class="title">LogIn</h2>
+    <div class="login-data">
+      <form [formGroup]="signInForm">
+        <mat-form-field>
+          <input matInput type="email" placeholder="Email Id (اسم المستخدم)" formControlName="email">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="password" placeholder="Password (كلمه السر)" formControlName="password">
+        </mat-form-field>
+        <div class="text-right">
+          <a routerLink='/'>Forgot password?</a>
+        </div>
+        <div class="logInbtn">
+          <button class="btn btn-success" [disabled]="!signInForm.valid" (click)="onSubmit()">Login (تسجيل
+            الدخول)</button>
+        </div>
+      </form>
+    </div>
+    <div class="signUpbtn col-md-12">
+      <a routerLink="/register">Register (التسجيل)</a>
+    </div>
+  </div>
+</div>
