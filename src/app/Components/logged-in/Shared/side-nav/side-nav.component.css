@@ -1,0 +1,46 @@
+.side-nav{
+    width: 250px;
+    min-height: 100%;
+    background-color: green;
+}
+
+.logo{
+    max-inline-size: -webkit-fill-available;
+    width: 150px;
+    margin: 5px 20%;
+    height: 150px;
+}
+
+.nav-body{
+    /* margin-top: 8%; */
+    padding: 10px;
+}
+
+.fa, .label {
+    color:white;
+    margin: 10px;
+}
+
+.label > span {
+    padding-left: 44px !important;
+}
+
+.nav-link:hover {
+    background-color: rgb(69, 179, 69);
+}
+
+a.active{
+    background-color: rgb(69, 179, 69);
+    border-radius: 5px;
+}
+
+.logout{
+    bottom: 10px;
+    position: absolute;
+    width: 230px;
+    cursor: pointer;
+}
+
+.mat-menu-panel{
+    background-color: white !important ;
+}

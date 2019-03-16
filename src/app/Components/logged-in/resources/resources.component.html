@@ -1,0 +1,26 @@
+<div class="resource-body">
+  <div class="resources">
+    <mat-tab-group>
+      <mat-tab label="Search Medicine (البحث عن الدواء)">
+        <ng-template matTabContent>
+          <app-drug-info></app-drug-info>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Medicine Interactions (تفاعل الأدوية)">
+        <ng-template matTabContent>
+          <app-drug-interaction></app-drug-interaction>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Medicine Substitution (بدائل الدواء)">
+        <ng-template matTabContent>
+          <app-drug-substitution></app-drug-substitution>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Food/Alcohol/Caffeine-Medicine Interaction (التفاعلات بين الطعام والكحول والأدوية)">
+        <ng-template matTabContent>
+          <app-food-interaction></app-food-interaction>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="side-nav">
+  <img src="../../../../assets/images/logo_amcl2.png" class="logo" alt="">
+  <div class="nav-body">
+    <ul class="sidebar navbar-nav">
+      <li>
+        <a class="nav-link" routerLink='/community' routerLinkActive="active">
+          <i class="fa fa-tachometer fa-lg" aria-hidden="true"></i>
+          <span class="label">Your Patients ( مرضاك )
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="nav-link" routerLink='//add_patient' routerLinkActive="active">
+          <i class="fa fa-user-plus fa-lg" aria-hidden="true"></i>
+          <span class="label">Register Patients
+            <span class="label">(تسجيل مريض جديد)</span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="nav-link" routerLink='/review_list' routerLinkActive="active">
+          <i class="fa fa-heartbeat fa-lg" aria-hidden="true"></i>
+          <span class="label">Run a Review ( مراجعة )
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="nav-link" routerLink='/tools' routerLinkActive="active">
+          <i class="fa fa-tasks fa-lg" aria-hidden="true"></i>
+          <span class="label">Tools ( أدوات المعلومات الطبية )</span>
+        </a>
+      </li>
+      <li>
+        <a class="nav-link" routerLink='/account' routerLinkActive="active">
+          <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
+          <span class="label">Account ( حسابات )</span>
+        </a>
+      </li>
+      <li>
+        <a class="nav-link logout" (click)="logOut()">
+          <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>
+          <span class="label">Log Out ( الخروج )</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

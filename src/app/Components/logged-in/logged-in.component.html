@@ -1,0 +1,14 @@
+<mat-sidenav-container class="nav-container">
+    <mat-sidenav #sidenav mode="over" [mode]="isLargeScreen() ? 'side' : 'over'" [opened]="isLargeScreen()">
+        <app-side-nav></app-side-nav>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar class="example-toolbar" *ngIf="!isLargeScreen()">
+            <button mat-icon-button (click)="sidenav.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <h1 class="example-app-name">Amcl</h1>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

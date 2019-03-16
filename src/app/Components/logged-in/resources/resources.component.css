@@ -1,0 +1,78 @@
+.resource-body{
+    padding: 0px;
+}
+
+.resources{
+    background-color: white;
+    border-radius: 10px;
+    padding: 25px;
+}
+
+.wrapper{
+    padding: 30px;
+    display: flex;
+}
+
+.form-control:focus{
+    border-color: #66afe9;
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}
+
+.search-title{
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    color: inherit;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    justify-content: center;
+    display: block;
+}
+
+.search-title p{
+    margin-bottom: 0.5rem;
+}
+
+.drug-search-body{
+    height: 100%;
+    margin-right: 5%;
+    padding: 0px;
+    border-radius: 10px;
+    box-shadow: 10px 10px #DEDEDE;
+    border: 1px solid #DEDEDE;
+}
+
+.search-body{
+    padding: 25px;
+}
+
+.search-btn{
+    padding-top: 15px;
+    justify-content: center;
+    display: flex;
+}
+
+.search-btn > button {
+    width: 100%;
+}
+
+
+.drug-info-div mat-expansion-panel{
+
+    background-color: #DCDCDC;
+}
+
+.drug-info-div mat-action-row{
+    background-color: white;
+}
+
+
+.substances{
+    padding-left: 25px;
+    padding-top: 0px;
+}
+
+.substanceList{
+    overflow-y: scroll;
+    height: 350px;
+}
