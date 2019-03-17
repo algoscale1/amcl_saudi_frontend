@@ -8,16 +8,18 @@
       <div class="col-md-12 row" style="margin:0px;">
         <div class="col-md-9 register-body">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
               <mat-form-field class="input">
                 <input matInput placeholder="First Name (الاسم الاول)" formControlName="fname">
               </mat-form-field>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
               <mat-form-field>
                 <input matInput placeholder="Last Name (الكنية)" formControlName="lname">
               </mat-form-field>
             </div>
+          </div>
+          <div class="row">
             <div class="col-md-4">
               <mat-form-field>
                 <mat-select placeholder="Gender (جنس)" formControlName="gender">
@@ -25,25 +27,14 @@
                 </mat-select>
               </mat-form-field>
             </div>
-          </div>
-          <div class="row">
             <div class="col-md-4">
               <mat-form-field>
-                <input matInput placeholder="Weight(الوز) [lbs]" formControlName="weight">
+                <input matInput placeholder="Weight(الوز) [Kg]" formControlName="weight">
               </mat-form-field>
             </div>
             <div class="col-md-4">
               <mat-form-field>
-                <mat-select placeholder="Height( الط) [ft.]" formControlName="heightFt">
-                  <mat-option *ngFor="let ft of ft" [value]="ft.value">{{ ft.value }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <mat-form-field>
-                <mat-select placeholder="Height(الطو) [inch.]" formControlName="heightIn">
-                  <mat-option *ngFor="let inch of inch" [value]="inch.value">{{ inch.value }}</mat-option>
-                </mat-select>
+                <input matInput placeholder="Height( الط) [m]" formControlName="height">
               </mat-form-field>
             </div>
           </div>

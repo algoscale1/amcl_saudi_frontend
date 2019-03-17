@@ -14,24 +14,7 @@ import { ErrorComponent } from '../../log-in/error/error.component';
 export class AddPatientComponent implements OnInit {
 
   profile_comp = 0;
-  ft = [
-    { value: '2' },
-    { value: '3' },
-    { value: '4' },
-    { value: '5' },
-    { value: '6' },
-    { value: '7' },
-    { value: '8' },
-    { value: '9' }
-  ];
-  inch = [
-    { value: '1' }, { value: '2' },
-    { value: '3' }, { value: '4' },
-    { value: '5' }, { value: '6' },
-    { value: '7' }, { value: '8' },
-    { value: '9' }, { value: '10' },
-    { value: '11' }, { value: '12' },
-  ];
+  height = '';
   gender = [
     { value: 'Male' },
     { value: 'Female' }
@@ -53,8 +36,7 @@ export class AddPatientComponent implements OnInit {
       dob: new FormControl('', Validators.required),
       gender: new FormControl('', Validators.required),
       weight: new FormControl('', Validators.required),
-      heightFt: new FormControl('', Validators.required),
-      heightIn: new FormControl('', Validators.required),
+      height: new FormControl('', Validators.required),
       marital_status: new FormControl('', Validators.required),
       address: new FormControl('', Validators.required),
       mailing_address: new FormControl('', Validators.required),
@@ -113,7 +95,7 @@ export class AddPatientComponent implements OnInit {
     data.append('dob', this.patientForm.controls['dob'].value);
     data.append('gender', this.patientForm.controls['gender'].value);
     data.append('weight', this.patientForm.controls['weight'].value);
-    data.append('height', this.patientForm.controls['heightFt'].value + '.' + this.patientForm.controls['heightIn'].value);
+    data.append('height', this.patientForm.controls['height'].value);
     data.append('marital_status', this.patientForm.controls['marital_status'].value);
     data.append('address', this.patientForm.controls['address'].value);
     data.append('mailing_address', this.patientForm.controls['mailing_address'].value);

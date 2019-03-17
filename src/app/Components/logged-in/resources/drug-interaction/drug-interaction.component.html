@@ -2,18 +2,18 @@
   <div class="drug-search-body col-md-5">
     <div class="search-title">
       <h4>Search for Medicine Interactions</h4>
-      <p>البحث عن التفاعلات بين الأدوية</p>
+      <p>(البحث عن التفاعلات بين الأدوية)</p>
     </div>
     <div class="search-body">
       <div class="form-group">
-        <label>Look for Medicine Name (ابحث عن اسم الدواء)</label>
+        <label style="width:100%;">Look for Medicine Name (ابحث عن اسم الدواء)</label>
         <input type="text" class="form-control" placeholder="Search Medicine" (keyup)="onSearch()"
           [(ngModel)]="searchInput" required>
       </div>
       <div class="form-group">
-        <label>Number of Medicine to choose from (اختيار اسم الدواء)<span id="number_of_drugs"
-            class="badge badge-pill badge-success">{{
-                dataLength }}</span>
+        <label>Number of Medicine to choose from <span id="number_of_drugs"
+            class="badge badge-pill badge-success">{{ dataLength }}</span>
+          <p>(اختيار اسم الدواء)</p>
         </label>
         <mat-form-field style="display: block;">
           <mat-select placeholder="Medicines" [(ngModel)]="selectedDrug" (ngModelChange)="onSelectDrug()">

@@ -2,18 +2,19 @@
   <div class="drug-search-body col-md-5">
     <div class="search-title">
       <h4>Search for alternative Medicine</h4>
-      <p>البحث عن الأدوية البديلة</p>
+      <p>(البحث عن الأدوية البديلة)</p>
     </div>
     <div class="search-body">
       <div class="form-group">
-        <label>Choose your new Medicine (اختيار الدواء الجديد)</label>
+        <label style="width:100%;">Choose your new Medicine (اختيار الدواء الجديد)</label>
         <input type="text" class="form-control" placeholder="Search Medicine" (keyup)="onNewSearch()"
           [(ngModel)]="newSearchInput" required>
       </div>
       <div class="form-group">
-        <label>Number of Medicine to choose from (اختيار اسم الدواء ) <span id="number_of_drugs"
-            class="badge badge-pill badge-success">{{
-                  newDataLength }}</span></label>
+        <label>Number of Medicine to choose from <span id="number_of_drugs" class="badge badge-pill badge-success">{{
+                  newDataLength }}</span>
+          <p>(اختيار اسم الدواء )</p>
+        </label>
         <mat-form-field style="display: block;">
           <mat-select placeholder="Medicines List" [(ngModel)]="newSelectedDrug" (ngModelChange)="onNewDrugSelect()">
             <mat-option *ngFor="let data of newSearchData" value="{{data._id }}">( ndc: {{data.ndc}} )
@@ -24,14 +25,15 @@
       <hr>
       <div class="form-group">
         <label>Choose the Medicine you are already taking</label>
-        <p>اختر الأدوية التي تتناولها</p>
+        <p>(اختر الأدوية التي تتناولها)</p>
         <input type="text" class="form-control" placeholder="Search Medicine" (keyup)="onSearch()"
           [(ngModel)]="searchInput" required>
       </div>
       <div class="form-group">
-        <label>Number of Medicine to choose from (اختيار اسم الدواء)<span id="number_of_drugs"
-            class="badge badge-pill badge-success">{{
-                  dataLength }}</span></label>
+        <label>Number of Medicine to choose from <span id="number_of_drugs" class="badge badge-pill badge-success">{{
+                  dataLength }}</span>
+          <p>(اختيار اسم الدواء)</p>
+        </label>
         <mat-form-field style="display: block;">
           <mat-select placeholder="Medicines List" [(ngModel)]="selectedDrug" (ngModelChange)="onSelectDrug()">
             <mat-option *ngFor="let data of searchData" value="{{data._id }}">( ndc: {{data.ndc}} )
