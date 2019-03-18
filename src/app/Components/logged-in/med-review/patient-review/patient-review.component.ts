@@ -65,7 +65,7 @@ export class PatientReviewComponent implements OnInit {
       address: [],
       // mailing_address: [],
       // biling_address: [],
-      profileImg: [''],
+      profileImg: [],
       pre_existing_conditions: [],
       medication_history: [],
       allergies: [],

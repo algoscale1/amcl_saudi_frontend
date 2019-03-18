@@ -17,20 +17,22 @@
         <!-- <li class="col-md-4"><b>Gender: </b> {{ patientInfo.gender }}</li> -->
         <!-- <li class="col-md-4"><b>Marital Status: </b> {{ patientInfo.marital_status }}</li> -->
         <li class="col-md-6"><b>DOB: </b>{{ patientInfo.dob | date: 'dd/MM/yyyy'}}</li>
-        <li class="col-md-6"><b>Weight (الاس): </b>{{patientInfo.weight }}Kg</li>
+        <li class="col-md-6"><b>Weight( الوزن ): </b>{{patientInfo.weight }}Kg</li>
         <li class="col-md-6"><b>Height (ارتفاع): </b>{{patientInfo.height }}m</li>
         <li class="col-md-12"><b>Address: </b>{{ patientInfo.address }}</li>
-        <li class="col-md-12"><b>Medical history: </b>
+        <!-- <li class="col-md-12"><b>Medical history (قائمة الأمراض): </b>
           <label *ngFor="let indication of patientInfo.pre_existing_conditions">{{indication.indication}},&nbsp;</label>
         </li>
-        <li class="col-md-12"><b>Medications: </b>
+        <li class="col-md-12"><b>List of Medications (قائمة الأدوية): </b>
           <label *ngFor="let med of patientInfo.medication_history">{{med.brand_name}},&nbsp;</label>
-        </li>
+        </li> -->
+        <li class="col-md-12"><b>Medical history (قائمة الأمراض): </b>Diabetes,stroke with atrial fibrillation</li>
+        <li class="col-md-12"><b>Medications (قائمة الأدوية): </b>Warfarin, Humalog, Bacterim, EpiPen</li>
       </ul>
     </div>
   </div>
   <div class="col-md-12 gauge-body">
-    <h4 class="text-center">Blood Test Result</h4>
+    <h4 class="text-center">Blood Test Result (نتائج فحص الدم)</h4>
     <div class="row">
       <div class="col-md-3 gauge">
         <div class="disease-gauge">
