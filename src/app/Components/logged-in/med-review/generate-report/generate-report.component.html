@@ -1,3 +1,27 @@
-<p>
-  generate-report works!
-</p>
+<div class="container-fluid">
+  <div class="print-icon" style="padding: 10px;">
+    <a (click)=print()></a>
+    <a></a>
+  </div>
+  <h2 class="report-title">Patient Report</h2>
+  <div class="card-body col-md-12">
+    <h2 class="title">Summary</h2>
+    <div class="summary col-md-12">
+      <ul style="list-style-type:circle;" class="row">
+        <li class="col-md-4"><b>Name: </b> {{ patientInfo.name }}</li>
+        <li class="col-md-4"><b>Gender: </b> {{ patientInfo.gender }}</li>
+        <li class="col-md-4"><b>Marital Status: </b> {{ patientInfo.marital_status }}</li>
+        <li class="col-md-4"><b>DOB: </b>{{ patientInfo.dob | date: 'dd/MM/yyyy'}}</li>
+        <li class="col-md-4"><b>Weight (وزن): </b>{{patientInfo.weight }}Kg</li>
+        <li class="col-md-4"><b>Height (ارتفاع): </b>{{patientInfo.height }}m</li>
+        <li class="col-md-12"><b>Address: </b>{{ patientInfo.address }}</li>
+        <li class="col-md-12"><b>Medical history: </b>
+          <label *ngFor="let indication of patientInfo.pre_existing_conditions">{{indication.indication}},&nbsp;</label>
+        </li>
+        <li class="col-md-12"><b>Medications: </b>
+          <label *ngFor="let med of patientInfo.medication_history">{{med.brand_name}},&nbsp;</label>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -16,32 +16,17 @@ export class PatientReviewComponent implements OnInit {
   patientId;
   patientInfo: any = [];
   patientForm: FormGroup;
-  InitialForm: FormGroup;
-  ft = [
-    { value: '2' },
-    { value: '3' },
-    { value: '4' },
-    { value: '5' },
-    { value: '6' },
-    { value: '7' },
-    { value: '8' },
-    { value: '9' }
-  ];
-  inch = [
-    { value: '1' }, { value: '2' },
-    { value: '3' }, { value: '4' },
-    { value: '5' }, { value: '6' },
-    { value: '7' }, { value: '8' },
-    { value: '9' }, { value: '10' },
-    { value: '11' }, { value: '12' },
-  ];
-  gender = [
+  InitialForm: FormGroup; gender = [
     { value: 'Male' },
     { value: 'Female' }
   ];
   marital = [
     { value: 'Married' },
     { value: 'Single' }
+  ];
+  option = [
+    { value: 'yes', name: 'Yes' },
+    { value: 'no', name: 'No' }
   ];
   name: String;
   height: String;
@@ -71,26 +56,28 @@ export class PatientReviewComponent implements OnInit {
 
     this.patientForm = this._fb.group({
       present: [],
-      fname: [],
-      lname: [],
+      name: [],
       dob: [],
-      gender: [],
+      // gender: [],
       weight: [],
-      heightFt: [],
-      heightIn: [],
-      marital_status: [],
+      height: [],
+      // marital_status: [],
       address: [],
-      mailing_address: [],
-      biling_address: [],
+      // mailing_address: [],
+      // biling_address: [],
       profileImg: [''],
       pre_existing_conditions: [],
       medication_history: [],
-      supliment_alcohol_caffiene_intake: [],
-      cyp_genetic_test: [],
-      self_reported_concerns: [],
+      allergies: [],
+      supplements: [],
+      caffeine: [],
+      alcohol: [],
       is_precription_taken_regularly: [],
-      is_smoke: [],
-      is_smoke_details: [],
+      cyp_test: ['no'],
+      insomnia: ['no'],
+      weight_loss: ['no'],
+      bladder: ['no'],
+      mood_changes: ['no'],
       is_diabetic: [],
       blood_test: this._fb.array([
         this._fb.group({
@@ -98,7 +85,10 @@ export class PatientReviewComponent implements OnInit {
           range: [],
           value: []
         })
-      ])
+      ]),
+      glucose_level_upon_walking: [],
+      glucose_level_before_meal: [],
+      glucose_level_90min_after_meal: []
     });
 
     // });
@@ -122,25 +112,20 @@ export class PatientReviewComponent implements OnInit {
 
   getReviewForm() {
 
-    let firstName: string = this.patientInfo['name'];
-    let height: string = this.patientInfo['height'];
-
     if (this.InitialForm.controls['review'].value == 'yes') {
 
       this.imgURL = this.patientInfo['profile_pic'].image;
 
       this.patientForm.patchValue({
-        fname: firstName.split(' ', 1)[0],
-        lname: firstName.split(' ', 2)[1],
+        name: this.patientInfo['name'],
         dob: this.patientInfo['dob'],
-        gender: this.patientInfo['gender'],
+        // gender: this.patientInfo['gender'],
         weight: this.patientInfo['weight'],
-        heightFt: height.split('.', 1)[0],
-        heightIn: height.split('.', 2)[1],
-        marital_status: this.patientInfo['marital_status'],
+        height: this.patientInfo['height'],
+        // marital_status: this.patientInfo['marital_status'],
         address: this.patientInfo['address'],
-        mailing_address: this.patientInfo['mailing_address'],
-        biling_address: this.patientInfo['biling_address'],
+        // mailing_address: this.patientInfo['mailing_address'],
+        // biling_address: this.patientInfo['biling_address'],
       });
 
       this.initiatReview = true;
@@ -200,28 +185,30 @@ export class PatientReviewComponent implements OnInit {
 
     // console.log(data)
 
-    let bloodT = data;
-    bloodT.blood_test = bloodT.blood_test.map(res => {
-      return {
-        key: res.key['key'],
-        range: res.key['range'],
-        value: res.value
-      }
-    })
+    // let bloodT = data;
+    // bloodT.blood_test = bloodT.blood_test.map(res => {
+    //   return {
+    //     key: res.key['key'],
+    //     range: res.key['range'],
+    //     value: res.value
+    //   }
+    // })
 
-    console.log(bloodT);
+    // console.log(bloodT);
+    this.router.navigate([this.router.url + '/generate_report']);
 
-    this.patientService.updatePatient(this.patientId, bloodT).subscribe(
-      res => {
-        this.snackBar.open(res, '', {
-          duration: 2000
-        })
 
-        // this.ifEdit = false;
-        this.router.navigate([this.router.url + '/generate_report']);
+    // this.patientService.updatePatient(this.patientId, bloodT).subscribe(
+    //   res => {
+    //     this.snackBar.open(res, '', {
+    //       duration: 2000
+    //     })
 
-      }
-    );
+    //     // this.ifEdit = false;
+    //     this.router.navigate([this.router.url + '/generate_report']);
+
+    //   }
+    // );
   };
 
 }

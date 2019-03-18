@@ -29,12 +29,12 @@
             </div>
             <div class="col-md-4">
               <mat-form-field>
-                <input matInput placeholder="Weight(الوز) [Kg]" formControlName="weight">
+                <input matInput placeholder="Weight(وزن) [Kg]" formControlName="weight">
               </mat-form-field>
             </div>
             <div class="col-md-4">
               <mat-form-field>
-                <input matInput placeholder="Height( الط) [m]" formControlName="height">
+                <input matInput placeholder="Height( ارتفاع) [m]" formControlName="height">
               </mat-form-field>
             </div>
           </div>
@@ -79,18 +79,14 @@
             <div class="image">
               <input class="profilePic" type="file" name="pic" accept="image/*" formControlName="profileImg"
                 (change)=newProfile($event)>
-              <h6 style="margin-top:10px;">Upload Picture ( صورة المريض )</h6>
+              <h6 style="margin-top:10px;">Upload Picture</h6>
+              <p>( صورة المريض )</p>
             </div>
-            <!-- <div class="patient-profile col-md-12">
-                <div class="row">
-                  <h5>Mary Brown</h5>
-                </div>
-              </div> -->
           </div>
           <div class="col-md-12 profile-completion">
             <h5>Profile Completion</h5>
-            <p>( قياس اكتمال الملف الشخصي )</p>
-            <circle-progress [percent]="70" [radius]="60" title={{profile_comp}}% [outerStrokeWidth]="15"
+            <p style="font-size: smaller;">( قياس اكتمال الملف الشخصي )</p>
+            <circle-progress [percent]="profile_comp" [radius]="60" title={{profile_comp}}% [outerStrokeWidth]="15"
               [innerStrokeWidth]="15" [outerStrokeColor]="'rgb(121, 46, 241)'" [innerStrokeColor]="'#e7e8ea'"
               [animation]="true" [animationDuration]="500" space="-15" outerStrokeLinecap="square" titleFontSize="40">
             </circle-progress>

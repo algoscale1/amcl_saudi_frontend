@@ -25,7 +25,7 @@ export class AddPatientComponent implements OnInit {
   ];
   billingAdd = true;
   profileImg: File;
-  imgURL;
+  imgURL: any = '';
 
   patientForm: FormGroup;
 
@@ -50,14 +50,43 @@ export class AddPatientComponent implements OnInit {
 
     this.patientForm.valueChanges.subscribe(
       (res) => {
-        console.log(res);
-        // for (let key in res) {
-        //   console.log(key)
-        //   if (res[key] !== undefined || null) {
-        //     this.profile_comp = this.profile_comp + 10;
-        //     console.log(this.profile_comp);
-        //   }
-        // };
+        var count = 0;
+
+        if (res.fname != "" && res.lname !== "") {
+          count = count + 10;
+        }
+        if (res.gender != "") {
+          count = count + 10;
+        }
+        if (res.weight != "") {
+          count = count + 10;
+        }
+        if (res.height != "") {
+          count = count + 10;
+        }
+        if (res.marital_status != "") {
+          count = count + 10;
+        }
+        if (res.dob != "") {
+          count = count + 10;
+        }
+        if (res.address != "") {
+          count = count + 10;
+        }
+        if (res.mailing_address != "") {
+          count = count + 10;
+        }
+        if (res.billAddChange == "no") {
+          count = count + 10;
+        }
+        if (res.biling_address != "") {
+          count = count + 10;
+        }
+        if (res.profileImg != "") {
+          count = count + 10;
+        }
+
+        this.profile_comp = count;
       }
     )
   }
@@ -88,7 +117,7 @@ export class AddPatientComponent implements OnInit {
       this.patientForm.controls['biling_address'].setValue(this.patientForm.controls['mailing_address'].value);
     }
 
-    console.log(this.patientForm)
+    // console.log(this.patientForm)
 
     let data = new FormData();
     data.append('name', this.patientForm.controls['fname'].value + ' ' + this.patientForm.controls['lname'].value);
