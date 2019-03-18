@@ -1,19 +1,24 @@
 <div class="container-fluid">
-  <div class="print-icon" style="padding: 10px;">
-    <a (click)=print()></a>
-    <a></a>
+  <div class="print-icon float-right" style="padding: 10px;">
+    <a (click)=print()>
+      <i class="fa fa-print fa-2x" aria-hidden="true"></i>
+    </a>
+    <a>
+      <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+    </a>
+    <a><i class="fa fa-file fa-2x" aria-hidden="true"></i></a>
   </div>
-  <h2 class="report-title">Patient Report</h2>
+  <h3 class="report-title">Patient Report</h3>
   <div class="card-body col-md-12">
-    <h2 class="title">Summary</h2>
+    <h4 class="title">Summary (ملخص طبي)</h4>
     <div class="summary col-md-12">
       <ul style="list-style-type:circle;" class="row">
-        <li class="col-md-4"><b>Name: </b> {{ patientInfo.name }}</li>
-        <li class="col-md-4"><b>Gender: </b> {{ patientInfo.gender }}</li>
-        <li class="col-md-4"><b>Marital Status: </b> {{ patientInfo.marital_status }}</li>
-        <li class="col-md-4"><b>DOB: </b>{{ patientInfo.dob | date: 'dd/MM/yyyy'}}</li>
-        <li class="col-md-4"><b>Weight (وزن): </b>{{patientInfo.weight }}Kg</li>
-        <li class="col-md-4"><b>Height (ارتفاع): </b>{{patientInfo.height }}m</li>
+        <li class="col-md-6"><b>Name: </b> {{ patientInfo.name }}</li>
+        <!-- <li class="col-md-4"><b>Gender: </b> {{ patientInfo.gender }}</li> -->
+        <!-- <li class="col-md-4"><b>Marital Status: </b> {{ patientInfo.marital_status }}</li> -->
+        <li class="col-md-6"><b>DOB: </b>{{ patientInfo.dob | date: 'dd/MM/yyyy'}}</li>
+        <li class="col-md-6"><b>Weight (الاس): </b>{{patientInfo.weight }}Kg</li>
+        <li class="col-md-6"><b>Height (ارتفاع): </b>{{patientInfo.height }}m</li>
         <li class="col-md-12"><b>Address: </b>{{ patientInfo.address }}</li>
         <li class="col-md-12"><b>Medical history: </b>
           <label *ngFor="let indication of patientInfo.pre_existing_conditions">{{indication.indication}},&nbsp;</label>
@@ -22,6 +27,119 @@
           <label *ngFor="let med of patientInfo.medication_history">{{med.brand_name}},&nbsp;</label>
         </li>
       </ul>
+    </div>
+  </div>
+  <div class="col-md-12 gauge-body">
+    <h4 class="text-center">Blood Test Result</h4>
+    <div class="row">
+      <div class="col-md-3 gauge">
+        <div class="disease-gauge">
+          <div class="outer">
+            <fusioncharts width="210" height="190" type="hlineargauge" [dataSource]="hemoglobinChart">
+            </fusioncharts>
+          </div>
+          <div class="row">
+            <div class="col-md-6 gauge-value">
+              <p>Normal Range</p>
+              <h6>12-16</h6>
+            </div>
+            <div class="col-md-6 gauge-value">
+              <p>Previous Score</p>
+              <h6>18</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 gauge">
+        <div class="disease-gauge">
+          <div class="outer">
+            <fusioncharts width="210" height="190" type="hlineargauge" [dataSource]="hematocritData">
+            </fusioncharts>
+          </div>
+          <div class="row">
+            <div class="col-md-6 gauge-value">
+              <p>Normal Range</p>
+              <h6>38-51</h6>
+            </div>
+            <div class="col-md-6 gauge-value">
+              <p>Previous Score</p>
+              <h6>79</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 gauge">
+        <div class="disease-gauge">
+          <div class="outer">
+            <fusioncharts width="210" height="190" type="hlineargauge" [dataSource]="neutrophilsData">
+            </fusioncharts>
+          </div>
+          <div class="row">
+            <div class="col-md-6 gauge-value">
+              <p>Normal Range</p>
+              <h6>18-40</h6>
+            </div>
+            <div class="col-md-6 gauge-value">
+              <p>Previous Score</p>
+              <h6>19</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 gauge">
+        <div class="disease-gauge">
+          <div class="outer">
+            <fusioncharts width="210" height="190" type="hlineargauge" [dataSource]="glucoseData">
+            </fusioncharts>
+          </div>
+          <div class="row">
+            <div class="col-md-6 gauge-value">
+              <p>Normal Range</p>
+              <h6>18-40</h6>
+            </div>
+            <div class="col-md-6 gauge-value">
+              <p>Previous Score</p>
+              <h6>19</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-review-drugs></app-review-drugs>
+
+  <div class="report-body col-md-12" id="report-body">
+    <h4 class="title">Recommendations (التوصيات الطبية)</h4>
+    <div class="report-point">
+      <div class="result-exp col-md-12">
+        <div>
+          <i class="fa fa-info-circle" aria-hidden="true"></i>
+          Drug Cessation: <p class="cess">Stop EpiPen_no allergy designation</p>
+        </div>
+        <div>
+          <i class="fa fa-info-circle" aria-hidden="true"></i>
+          Subsitute sulfamethoxale-trimethoprin oral with <p class="cess">clindamycin</p>
+          (SMZ-TMP DS: 160 mg: 20 oral tablets=$15 Clindamycin: 300 mg: 20 capsules = $12.96)
+        </div>
+        <div>
+          <i class="fa fa-info-circle" aria-hidden="true"></i>
+          Other: <p class="cess">Cease Vitamin K levels as it can promote clotting and reduce the
+            effectiveness of
+            warfarin</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <i class="fa fa-phone-square" aria-hidden="true"></i>&nbsp;
+        <h6 style="display:inline; padding-right:20px">Contact Physician:</h6>
+        <p style="display:inline;">9875412356</p>
+      </div>
+      <div class="col-md-12" style="margin-top:20px;">
+        <div class="form-group">
+          <label> Physician's response :</label>
+          <textarea rows="2" cols="80" class="form-control" value="prescription"></textarea>
+        </div>
+      </div>
     </div>
   </div>
 </div>

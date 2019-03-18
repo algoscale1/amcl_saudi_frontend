@@ -6,7 +6,7 @@
 
 .report-title{
     margin-bottom: 20px;
-    font-size: 42px;
+    margin-top: 20px;
 }
 
 .report-body{
@@ -14,7 +14,8 @@
     border-radius: 20px;
     margin: 20px 0px 20px 0px;
     padding: 25px;
-    background-color: white;
+    background-color: rgb(236, 236, 236);
+    /* background-color: white; */
 }
 
 .report-point{
@@ -55,7 +56,12 @@
     padding: 15px;
     margin-top: 20px;
     /* margin-right: 40px; */
-    background: white;
+    background-color: rgb(236, 236, 236);
+    /* background: white; */
+}
+
+.gauge p{
+    font-size: smaller;
 }
 
 .gauge-body h2{
@@ -84,14 +90,6 @@
     background-color: #9cb1f5;
 }
 
-.fa-phone-square, .fa-medkit{
-    color: rgb(236, 31, 134);
-}
-
-.fa-square-o{
-    box-shadow: 5px;
-}
-
 .summary{
     padding: 25px;
     margin-top: 25px;
@@ -100,7 +98,8 @@
 }
 
 .result-exp{
-    background-color: rgb(233, 233, 233);
+    background: white;
+    /* background-color: rgb(233, 233, 233); */
     border-radius: 20px;
     padding: 10px;
     margin: 10px;
@@ -110,6 +109,10 @@
     display: inline;
 }
 
+.fa-2x{
+    margin : 0 10px;
+}
+
 .fa-info-circle{
     color:red;
 }
@@ -117,4 +120,8 @@
 .cess{
     display: inline;
     color: red;
+}
+
+.fa-phone-square, .fa-medkit{
+    color: rgb(236, 31, 134);
 }

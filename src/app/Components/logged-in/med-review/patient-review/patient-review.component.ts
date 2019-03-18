@@ -69,6 +69,7 @@ export class PatientReviewComponent implements OnInit {
       pre_existing_conditions: [],
       medication_history: [],
       allergies: [],
+      list_allergies: [],
       supplements: [],
       caffeine: [],
       alcohol: [],
