@@ -131,17 +131,17 @@ export class AddPatientComponent implements OnInit {
     data.append('billing_address', this.patientForm.controls['biling_address'].value);
     data.append('profileImage', this.profileImg);
 
-    // this.patientService.addPatient(data).subscribe(
-    //   res => {
-    //     this.snackBar.openFromComponent(ErrorComponent, {
-    //       duration: 3000,
-    //       data: 'Patient Added!'
-    //     });
+    this.patientService.addPatient(data).subscribe(
+      res => {
+        this.snackBar.openFromComponent(ErrorComponent, {
+          duration: 3000,
+          data: 'Patient Added!'
+        });
 
-    //     this.router.navigate(['/review_list']);
-    //   },
-    //   err => { }
-    // )
+        this.router.navigate(['/review_list']);
+      },
+      err => { }
+    )
 
   };
 
