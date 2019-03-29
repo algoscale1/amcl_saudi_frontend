@@ -1,5 +1,5 @@
 <div class="acc-wrapper">
-  <h3>Your Profile (ملفك الشخص ): Dr. Adam M (آدم م )</h3>
+  <h3>Your Profile (ملفك الشخص ): </h3>
   <mat-card>
     <div class="row">
       <div class="col-md-3">
@@ -9,11 +9,20 @@
       </div>
       <div class="col-md-9">
         <ul style="list-style-type:none;">
-          <li><b>First Name (الاسم الاول) :</b> Adam (آدم)</li>
-          <li><b>Last name (الكنية) :</b> M (م)</li>
-          <li><b>Phone number(رقم الهاتف) [Tel.]:</b> 9874563210</li>
-          <li><b>Email address (عنوان بريد الكتروني) :</b> Adam@test.com</li>
+          <li><b>First Name (الاسم الاول) :</b>{{fname}}</li>
+          <mat-divider [inset]="true"></mat-divider>
+          <li><b>Last name (الكنية) :</b>{{lname}}</li>
+          <mat-divider [inset]="true"></mat-divider>
+          <li><b>Phone number(رقم الهاتف) [Tel.]:</b> {{doctorDetails.phone}}</li>
+          <mat-divider [inset]="true"></mat-divider>
+          <li><b>Email address (عنوان بريد الكتروني):</b> {{doctorDetails.email}}</li>
+          <mat-divider [inset]="true"></mat-divider>
         </ul>
+      </div>
+      <div class="buttons">
+        <button mat-flat-button color="primary" class="float-right" (click)="editAccount()">Edit</button>
+        <button mat-flat-button color="warn" class="float-right" style="margin-right:5px;"
+          (click)="changePassword()">Change Password</button>
       </div>
     </div>
   </mat-card>

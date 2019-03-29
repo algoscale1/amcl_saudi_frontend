@@ -43,6 +43,13 @@ export class PatientService {
     )
   };
 
+  deletePatient(id) {
+
+    return this.http.delete(`${environment.API_url}/patient/delete/${id}`).pipe(
+      map(res => res['message'])
+    )
+  };
+
   getAllIndication() {
 
     return this.http.get(`${environment.API_url}/drug/indication/get/`).pipe(
@@ -60,6 +67,12 @@ export class PatientService {
   getBloodTest() {
 
     return this.http.get(`${environment.API_url}/drug/bloodTest/list`).pipe(
+      map(res => res['data'])
+    )
+  };
+
+  generateReport(id) {
+    return this.http.get(`${environment.API_url}/patient/get/${id}?report=true`).pipe(
       map(res => res['data'])
     )
   };

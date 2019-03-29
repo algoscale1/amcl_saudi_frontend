@@ -16,12 +16,12 @@ export class AddPatientComponent implements OnInit {
   profile_comp = 0;
   height = '';
   gender = [
-    { value: 'Male' },
-    { value: 'Female' }
+    { value: 'Male (ذكر)' },
+    { value: 'Female (نثى)' }
   ];
   marital = [
-    { value: 'Married' },
-    { value: 'Single' }
+    { value: 'Married (متزوج)' },
+    { value: 'Single (عزب)' }
   ];
   billingAdd = true;
   profileImg: File;
@@ -52,7 +52,10 @@ export class AddPatientComponent implements OnInit {
       (res) => {
         var count = 0;
 
-        if (res.fname != "" && res.lname !== "") {
+        if (res.fname != "" && res.lname != "") {
+          count = count + 10;
+        }
+        if (res.address !== "") {
           count = count + 10;
         }
         if (res.gender != "") {
@@ -70,9 +73,6 @@ export class AddPatientComponent implements OnInit {
         if (res.dob != "") {
           count = count + 10;
         }
-        if (res.address != "") {
-          count = count + 10;
-        }
         if (res.mailing_address != "") {
           count = count + 10;
         }
@@ -88,7 +88,7 @@ export class AddPatientComponent implements OnInit {
 
         this.profile_comp = count;
       }
-    )
+    );
   }
 
   ChangBillingAddress() {
@@ -98,7 +98,7 @@ export class AddPatientComponent implements OnInit {
     else {
       this.billingAdd = true;
     }
-  }
+  };
 
   newProfile(event) {
 
@@ -113,9 +113,9 @@ export class AddPatientComponent implements OnInit {
 
   onSubmit() {
 
-    if (this.billingAdd = false) {
-      this.patientForm.controls['biling_address'].setValue(this.patientForm.controls['mailing_address'].value);
-    }
+    // if (this.billingAdd = false) {
+    //   this.patientForm.controls['biling_address'].setValue(this.patientForm.controls['mailing_address'].value);
+    // }
 
     // console.log(this.patientForm)
 
@@ -126,9 +126,9 @@ export class AddPatientComponent implements OnInit {
     data.append('weight', this.patientForm.controls['weight'].value);
     data.append('height', this.patientForm.controls['height'].value);
     data.append('marital_status', this.patientForm.controls['marital_status'].value);
-    data.append('address', this.patientForm.controls['address'].value);
-    data.append('mailing_address', this.patientForm.controls['mailing_address'].value);
-    data.append('billing_address', this.patientForm.controls['biling_address'].value);
+    // data.append('address', this.patientForm.controls['address'].value);
+    // data.append('mailing_address', this.patientForm.controls['mailing_address'].value);
+    // data.append('billing_address', this.patientForm.controls['biling_address'].value);
     data.append('profileImage', this.profileImg);
 
     this.patientService.addPatient(data).subscribe(

@@ -14,6 +14,7 @@ import { ErrorComponent } from '../log-in/error/error.component';
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
+  profileImg: File;
 
   constructor(private router: Router, private snackBar: MatSnackBar, private registerService: RegisterService) {
     this.registerForm = new FormGroup({
@@ -21,21 +22,27 @@ export class RegisterComponent implements OnInit {
       phone: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.email, Validators.required]),
       password: new FormControl('', Validators.required),
-      cPassword: new FormControl('', Validators.required)
+      cPassword: new FormControl('', Validators.required),
+      profileImg: new FormControl('', Validators.required)
     });
   }
 
   ngOnInit() {
   }
 
+  newProfile(event) {
+
+    this.profileImg = event.target.files[0];
+  };
+
   onRegister() {
 
-    let data = {
-      name: this.registerForm.controls['name'].value,
-      email: this.registerForm.controls['email'].value,
-      phone: this.registerForm.controls['phone'].value,
-      password: this.registerForm.controls['password'].value
-    };
+    let data = new FormData();
+    data.append('name', this.registerForm.controls['fname'].value + ' ' + this.registerForm.controls['lname'].value);
+    data.append('email', this.registerForm.controls['email'].value);
+    data.append('phone', this.registerForm.controls['phone'].value);
+    data.append('password', this.registerForm.controls['password'].value);
+    data.append('profileImage', this.profileImg);
 
     if (this.registerForm.controls['password'].value == this.registerForm.controls['cPassword'].value) {
       this.registerService.register(data).subscribe(

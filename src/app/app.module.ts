@@ -39,6 +39,11 @@ import { FoodInteractionComponent } from './Components/logged-in/resources/food-
 import { SideNavComponent } from './Components/logged-in/Shared/side-nav/side-nav.component';
 import { ErrorComponent } from './Components/log-in/error/error.component';
 import { TokenInterceptor } from './Authentication/interceptor.interceptor';
+import { ChangePasswordComponent } from './Components/logged-in/account/change-password/change-password.component';
+import { EditAccountComponent } from './Components/logged-in/account/edit-account/edit-account.component';
+import { DosageCalculatorComponent } from './Components/logged-in/resources/dosage-calculator/dosage-calculator.component';
+import { FiltersPipe } from './Components/logged-in/med-review/patient-review/filters.pipe';
+import { SupplemetsComponent } from './Components/logged-in/med-review/patient-review/supplemets/supplemets.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +65,12 @@ import { TokenInterceptor } from './Authentication/interceptor.interceptor';
     DrugSubstitutionComponent,
     FoodInteractionComponent,
     SideNavComponent,
-    ErrorComponent
+    ErrorComponent,
+    ChangePasswordComponent,
+    EditAccountComponent,
+    DosageCalculatorComponent,
+    FiltersPipe,
+    SupplemetsComponent
   ],
   imports: [
     BrowserModule,
@@ -96,7 +106,7 @@ import { TokenInterceptor } from './Authentication/interceptor.interceptor';
       multi: true
     }
   ],
-  entryComponents: [ErrorComponent, SideEffectsComponent],
+  entryComponents: [ErrorComponent, SideEffectsComponent, ChangePasswordComponent, EditAccountComponent, SupplemetsComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

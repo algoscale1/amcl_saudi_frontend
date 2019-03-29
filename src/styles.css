@@ -9,3 +9,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 [class*="-belowplot"], [class*="-creditgroup"] {
     display: none;  
 }
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
+    border-color:green;
+  }
+  
+  .mat-radio-button.mat-accent .mat-radio-inner-circle{
+    color:green;
+    background-color:green;
+  }
+  
+  .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+      background-color:green;
+  }

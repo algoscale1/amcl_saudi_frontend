@@ -11,23 +11,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Ayman ( ايمن )</td>
-          <td>L. ( ل )</td>
-          <td>08-08-1965</td>
-          <td>13-03-2018</td>
-        </tr>
-        <tr>
-          <td>Salma سلمى</td>
-          <td>L. ( ل )</td>
-          <td>08-08-1965</td>
-          <td>14-04-2018</td>
-        </tr>
-        <tr>
-          <td>Samer سامر</td>
-          <td>S. ( س )</td>
-          <td>03-10-1988</td>
-          <td>18-03-2018</td>
+        <tr *ngFor="let patientList of patientList">
+          <td>{{patientList.fname}}</td>
+          <td>{{patientList.lname}}</td>
+          <td>{{patientList.dob | date: 'dd/MM/yyyy'}}</td>
+          <td>{{patientList.last_interaction | date: 'dd/MM/yyyy' }}</td>
         </tr>
       </tbody>
     </table>

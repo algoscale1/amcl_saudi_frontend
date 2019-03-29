@@ -2,14 +2,14 @@
   <form [formGroup]="InitialForm">
     <div class="col-md-12 row">
       <div class="col-md-6">
-        <h3 class="title">Initiate a review :</h3>
+        <h3 class="title">Start a review :</h3>
         <mat-radio-group formControlName="review" (change)="getReviewForm()">
           <mat-radio-button value="yes">Yes</mat-radio-button>&nbsp;
           <mat-radio-button value="no">No</mat-radio-button>
         </mat-radio-group>
       </div>
       <div class="col-md-6">
-        <h3 class="title">Medical history :</h3>
+        <h3 class="title">Type of review :</h3>
         <mat-radio-group formControlName="history">
           <mat-radio-button value="emr">EMR</mat-radio-button>&nbsp;
           <mat-radio-button value="manual">Manual</mat-radio-button>
@@ -30,6 +30,8 @@
       <div class="card-body">
         <div class="row" style="margin:0px;">
           <div class="col-md-9 register-body">
+            <i class="fa fa-pencil" aria-hidden="true" style="color:blue"></i>&nbsp;
+            <h5 style="display: inline;">Summary</h5>
             <div class="row">
               <div class="col-md-8">
                 <mat-form-field class="input">
@@ -79,13 +81,19 @@
         </div>
       </div>
       <div class="register-body">
-        <h5>Patient Medical Information</h5>
+        <i class="fa fa-medkit" aria-hidden="true" style="color:blue;"></i>&nbsp;
+        <h5 style="display:inline">Patient Medical Information</h5>
         <div class="row">
           <div class="col-md-6">
             <mat-form-field>
               <mat-select placeholder="Pre-existing Conditions" formControlName="pre_existing_conditions"
                 (ngModelChange)="onselectIndication()" multiple>
-                <mat-option *ngFor="let indication of indicationList" [value]="indication._id">
+                <mat-form-field style="padding: 0 15px;">
+                  <input matInput placeholder="Search..." [(ngModel)]="search_cond"
+                    [ngModelOptions]="{standalone: true}">
+                </mat-form-field>
+                <mat-option *ngFor="let indication of indicationList | filters:search_cond:'indication' "
+                  [value]="indication._id">
                   {{indication.indication}}
                 </mat-option>
               </mat-select>
@@ -93,10 +101,15 @@
           </div>
           <div class="col-md-6">
             <mat-form-field>
-              <mat-select placeholder="Medication history (التاريخ الطبي)" formControlName="medication_history"
-                multiple>
-                <mat-option *ngFor="let med of drugList" [value]="med._id">
-                  (Ndc: {{med.ndc}}) {{med.brand_name}}
+              <mat-select placeholder="Medication history" formControlName="medication_history" multiple>
+                <mat-form-field style="padding: 0 15px;">
+                  <input matInput placeholder="Search..." [(ngModel)]="search_med"
+                    [ngModelOptions]="{standalone: true}">
+                </mat-form-field>
+                <mat-option (onSelectionChange)="onSelectDrug($event.source)"
+                  *ngFor="let med of drugList | filters:search_med:'brand_name'" [value]="med">
+                  (Ndc: {{med.ndc}}) {{med.brand_name}} (Manufacturer: {{med.manufacterer}}) (Dosage:
+                  <label *ngFor="let dosage of med.doses"> {{dosage}})</label>
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -135,7 +148,9 @@
         </div>
       </div>
       <div class="register-body">
-        <h5>Genetic CYP Test Result (علامة وراثية) & Self Reported Concerns (التعليقات الطبية المبلغ عنها)</h5>
+        <i class="fa fa-eye" aria-hidden="true" style="color:blue;"></i>&nbsp;
+        <h5 style="display:inline;">Genetic CYP Test Result (علامة وراثية) & Self Reported Concerns (التعليقات الطبية
+          المبلغ عنها)</h5>
         <div class="row">
           <div class="col-md-4">
             <mat-form-field>
@@ -176,15 +191,32 @@
       </div>
       <div class="register-body">
         <div class="row">
-          <div class="col-md-6" style="padding: 0px 20px">
-            <label style="width:100%">Adherence to Medical Regiment (الالتزام بالخطة الطبية) :</label><br>
-            <label>Are you taking the drug as prescribed??&nbsp;</label>
-            <mat-form-field>
-              <mat-select placeholder="(هل تأخذ الدواء على النحو)" formControlName="is_precription_taken_regularly">
-                <mat-option *ngFor="let opt of option" [value]="opt.value">{{opt.name}}</mat-option>
-              </mat-select>
-            </mat-form-field>
+          <div class="col-md-6">
+            <div class="col-md-12" style="padding: 0px 20px">
+              <label style="width:100%">Adherence to Medical Regiment (الالتزام بالخطة الطبية) :</label><br>
+              <label>Are you taking the drug as prescribed??&nbsp;</label>
+              <mat-form-field>
+                <mat-select placeholder="(هل تأخذ الدواء على النحو)" formControlName="is_precription_taken_regularly">
+                  <mat-option *ngFor="let opt of option" [value]="opt.value">{{opt.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-12" style="padding: 20px">
+              <label>Glucose Level (مستوى السكر في الدم) :</label><br>
+              Is the patient diabetic?&nbsp;
+              <mat-radio-group class="smoke" formControlName="is_diabetic">
+                <mat-radio-button value="yes">Yes</mat-radio-button>&nbsp;
+                <mat-radio-button value="no">No</mat-radio-button>
+              </mat-radio-group>
+              <div>
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="Blood Glucose level (mg/dL)" type="number"
+                    formControlName="glucose_level">
+                </mat-form-field>
+              </div>
+            </div>
           </div>
+
           <div class="col-md-6" formArrayName="blood_test" style="padding:0 20px">
             <label>Blood Test</label>
             <div *ngFor="let key of blood_test.controls; let i=index">
@@ -207,27 +239,7 @@
             </div>
             <button mat-flat-button color="basic" *ngIf="bloodNum < 10" (click)="addAlias()">Add Test</button>
           </div>
-          <div class="col-md-6" style="padding: 20px">
-            <label>Glucose Level (مستوى السكر في الدم) :</label><br>
-            Is the patient diabetic?&nbsp;
-            <mat-radio-group class="smoke" formControlName="is_diabetic">
-              <mat-radio-button value="yes">Yes</mat-radio-button>&nbsp;
-              <mat-radio-button value="no">No</mat-radio-button>
-            </mat-radio-group>
-            <div>
-              <mat-form-field class="example-full-width">
-                <input matInput placeholder="glucose level upon walking(mmol/L)"
-                  formControlName="glucose_level_upon_walking">
-              </mat-form-field>
-              <mat-form-field class="example-full-width">
-                <input matInput placeholder="Before Meal(mmol/L%)" formControlName="glucose_level_before_meal">
-              </mat-form-field>
-              <mat-form-field class="example-full-width">
-                <input matInput placeholder="90 minutes after mealsmmol/L%)"
-                  formControlName="glucose_level_90min_after_meal">
-              </mat-form-field>
-            </div>
-          </div>
+
         </div>
       </div>
     </form>

@@ -9,6 +9,11 @@ table{
     padding: 20px;
 }
 
+.list {
+    width: 90% !important;
+    display: inline-block !important;
+}
+
 th{
     font-size: 30px;
     padding: 10px 0 10px 20px !important;

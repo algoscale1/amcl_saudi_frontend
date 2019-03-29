@@ -25,3 +25,8 @@ li{
 h3{
     margin-bottom: 1.5rem;
 }
+
+.buttons{
+    width: 100%;
+    display: inline-block;
+}

@@ -105,6 +105,19 @@
     margin: 10px;
 }
 
+.result-body{
+    /* border-style: groove; */
+    border-radius: 20px;
+    margin-top: 20px;
+    background-color: #DEDEDE; 
+    padding: 25px;
+}
+
+.alert-body{
+    padding: 25px;
+    background-color: white;;
+}
+
 .inline{
     display: inline;
 }
@@ -124,4 +137,8 @@
 
 .fa-phone-square, .fa-medkit{
     color: rgb(236, 31, 134);
+}
+
+.mat-form-field{
+    width:100%;
 }
