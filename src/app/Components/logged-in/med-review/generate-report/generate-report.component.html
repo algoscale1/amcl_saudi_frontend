@@ -1,136 +1,159 @@
 <div class="container-fluid">
-  <div class="print-icon float-right" style="padding: 10px;">
-    <a (click)=print()>
+  <div class="print-icon float-right" style="padding: 10px; cursor: pointer;">
+    <a (click)="print()">
       <i class="fa fa-print fa-2x" aria-hidden="true"></i>
     </a>
     <a>
       <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
     </a>
-    <a><i class="fa fa-file fa-2x" aria-hidden="true"></i></a>
   </div>
-  <h2 class="report-title">Patient Report</h2>
-  <div class="card-body col-md-12">
-    <h3 class="title">Summary</h3>
-    <div class="summary col-md-12">
-      <ul style="list-style-type:circle;" class="row">
-        <li class="col-md-4"><b>Name: </b> {{ patientInfo.name }}</li>
-        <li class="col-md-4"><b>DOB ( تاريخ الولادة:) [Yr.]: </b>{{ patientInfo.dob | date: 'dd/MM/yyyy' }}</li>
-        <li class="col-md-4"><b>Weight ( الوزن ) [ Kg ]: </b>{{patientInfo.weight }}lbs</li>
-        <li class="col-md-4"><b>Height (ارتفاع) [ m ]: </b>{{patientInfo.height }}m</li>
-        <li class="col-md-12"><b>Address: </b>{{ patientInfo.address }}</li>
-        <li class="col-md-12"><b>Medical history:(قائمة الأمراض) </b>
-          <label *ngFor="let indication of patientInfo.pre_existing_conditions">{{indication.indication}},&nbsp;</label>
-        </li>
-        <li class="col-md-12"><b>Medications (قائمة الأدوية): </b>
-          <label *ngFor="let med of patientInfo.medication_history">{{med.brand_name}},&nbsp;</label>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div class="col-md-12 gauge-body">
-    <h4 class="text-center">Blood Glucose Level Result</h4>
-    <div class="disease-gauge">
-      <div class="outer">
-        <fusioncharts width="450" height="190" type="hlineargauge" [dataSource]="glucose_level"></fusioncharts>
+  <div class="report-wrapper">
+    <h2 class="report-title">Patient Report</h2>
+    <div class="card-body col-md-12">
+      <h3 class="title">Summary</h3>
+      <div class="summary col-md-12">
+        <ul style="list-style-type:circle;" class="row">
+          <li class="col-md-6"><b>Name: </b> {{ patientInfo.name }}</li>
+          <li class="col-md-6"><b>DOB ( تاريخ الولادة:) [Yr.]: </b>{{ patientInfo.dob | date: 'dd/MM/yyyy' }}</li>
+          <li class="col-md-6"><b>Weight ( الوزن ) [ Kg ]: </b>{{patientInfo.weight }}Kg</li>
+          <li class="col-md-6"><b>Height (ارتفاع) [ m ]: </b>{{patientInfo.height }}m</li>
+          <li class="col-md-12"><b>Address: </b>{{ patientInfo.address }}</li>
+          <li class="col-md-12"><b>Medical history:(قائمة الأمراض) </b>
+            <label
+              *ngFor="let indication of patientInfo.pre_existing_conditions">{{indication.indication}},&nbsp;</label>
+          </li>
+          <li class="col-md-12"><b>Medications (قائمة الأدوية): </b>
+            <label *ngFor="let med of patientInfo.medication_history">{{med.brand_name}},&nbsp;</label>
+          </li>
+        </ul>
       </div>
+    </div>
+    <div class="col-md-12 gauge-body">
+      <h4 class="text-center">Blood Glucose Level Result</h4>
+      <div class="disease-gauge">
+        <div class="outer">
+          <fusioncharts width="450" height="190" type="hlineargauge" [dataSource]="glucose_level"></fusioncharts>
+        </div>
+        <div class="row">
+          <div class="col-md-6 gauge-value" style="text-align:right;padding: 0 20px;">
+            <p>Normal Range</p>
+            <h6>60 - 120</h6>
+          </div>
+          <div class="col-md-6 gauge-value" style="text-align:left;padding: 0 20px;">
+            <p>Previous Score</p>
+            <h6>{{patientInfo?.previous_glucose_level}}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 gauge-body">
+      <h4 class="text-center">Blood Test Result (نتائج فحص الدم)</h4>
       <div class="row">
-        <div class="col-md-6 gauge-value" style="text-align:right;padding: 0 20px;">
-          <p>Normal Range</p>
-          <h6>60 - 120</h6>
-        </div>
-        <div class="col-md-6 gauge-value" style="text-align:left;padding: 0 20px;">
-          <p>Previous Score</p>
-          <h6>18</h6>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-12 gauge-body">
-    <h4 class="text-center">Blood Test Result (نتائج فحص الدم)</h4>
-    <div class="row">
-      <div class="col-md-3" *ngFor="let test of test">
-        <div class="disease-gauge">
-          <div class="outer">
-            <fusioncharts width="225" height="190" type="hlineargauge" [dataSource]="test"></fusioncharts>
-          </div>
-          <div class="row">
-            <div class="col-md-6 gauge-value">
-              <p>Normal Range</p>
-              <h6>{{test.chart.lowerLimit}} - {{test.chart.upperLimit}}</h6>
+        <div class="col-md-3" *ngFor="let test of test">
+          <div class="disease-gauge">
+            <div class="outer">
+              <fusioncharts width="225" height="190" type="hlineargauge" [dataSource]="test"></fusioncharts>
             </div>
-            <div class="col-md-6 gauge-value">
-              <p>Previous Score</p>
-              <h6>18</h6>
+            <div class="row">
+              <div class="col-md-6 gauge-value">
+                <p>Normal Range</p>
+                <h6>{{test.chart.lowerLimit}} - {{test.chart.upperLimit}}</h6>
+              </div>
+              <div class="col-md-6 gauge-value">
+                <p>Previous Score</p>
+                <h6>{{test.chart.previous_value}}</h6>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="result-body">
-    <h3 class="title" style="color:red">Alerts (تحذيرات طبية)</h3>
-    <div class="alert-body">
-      Pre-existing conditions : <label class="cess"
-        *ngFor="let indication of patientInfo.pre_existing_conditions">{{indication.indication}},&nbsp;</label><br>
-      List of medications : <label class="cess" *ngFor="let med of patientInfo.medication_history">(Ndc: {{med.ndc}})
-        {{med.brand_name}} (Manufacturer: {{med.manufacterer}}) (Dosage:
-        <label *ngFor="let dosage of med.doses"> {{dosage}}),</label>&nbsp;</label><br>
-      Drug-Drug Interactions (التفاعلات الخطيرة بين الأدوية): <p class="cess" *ngIf="interactions">No Interaction was
-        Found</p><br>
-      Severity (مستوى الخطر): <p class="cess" *ngIf="interactions">None</p><br>
-      Explanation ( التفسير الطبي ):<p class="cess" *ngIf="interactions">None</p><br>
-      Allergies : <p class="cess">{{patientInfo.allergies}}</p><br>
-      Supplement, Alcohol, Caffeine intake : <label
-        class="cess">{{patientInfo.supliment_alcohol_caffiene_intake}}</label><br>
-      Vaccines : <label class="cess" *ngFor="let vaccines of patientInfo.vaccines">{{vaccines}},&nbsp;</label><br>
-      Self Reported Concerns : <p class="cess">
-        {{patientInfo.self_reported_concerns}}{{patientInfo.self_reported_concerns_notes}}</p><br>
-      Adherence : <p class="cess">None</p><br>
-      CYP Genetic Test Results : <p class="cess">{{patientInfo.cyp_genetic_test}}</p><br>
-      Glucose Test Result Means: <p class="cess">{{glucose_level_means}}</p>
+    <div class="result-body">
+      <h3 class="title" style="color:red">Alerts (تحذيرات طبية)</h3>
+      <div class="alert-body">
+        Pre-existing conditions : <label class="cess"
+          *ngFor="let indication of patientInfo.pre_existing_conditions">{{indication.indication}},&nbsp;</label><br>
+
+        List of medications : <br>
+        <p style="margin-left:10px;" class="cess" *ngFor="let med of patientInfo.medication_history">(Ndc: {{med.ndc}})
+          {{med.brand_name}} (Manufacturer: {{med.manufacterer}}) <br>
+          &nbsp;Dosages : <label style="color:black;" *ngFor="let dosage of med.doses"> {{dosage}}</label>
+          <label *ngIf="med.price">Prices : {{med.price}}</label>
+          <br>
+        </p>
+
+        Drug-Drug Interactions (التفاعلات الخطيرة بين الأدوية): <p class="cess" *ngIf="interactions == ''">No
+          Interaction
+          was Found</p>
+        <br>
+        <div *ngFor="let interaction of interactions" style="padding-left:15px;">
+          <p class="cess">{{interaction.drug1.brand_name}} and {{interaction.drug2.brand_name}}</p> :
+          Severity (مستوى الخطر):
+          <p class="cess">{{interaction.severity}}</p>
+          <p class="cess" *ngIf="!interactions">None</p><br>
+          Explanation ( التفسير الطبي ):<p class="cess" *ngIf="!interactions">None</p><br>
+          <br>
+        </div>
+
+        Allergies : <p class="cess">{{patientInfo.list_allergies}}</p><br>
+
+        Supplement : <label class="cess">{{patientInfo.supliment}}</label><br>
+
+        Alcohol : <label class="cess">{{patientInfo.alcohol}}</label><br>
+
+        Caffeine : <label class="cess">{{patientInfo.caffeine}}</label><br>
+        <!-- Vaccines : <label class="cess" *ngFor="let vaccines of patientInfo.vaccines">{{vaccines}},&nbsp;</label><br> -->
+        <!-- Self Reported Concerns : <p class="cess">
+        {{patientInfo.self_reported_concerns}}{{patientInfo.self_reported_concerns_notes}}</p><br> -->
+
+        Adherence : <p class="cess">None</p><br>
+        <!-- CYP Genetic Test Results : <p class="cess">{{patientInfo.cyp_genetic_test}}</p><br> -->
+
+        Glucose Test Result Means: <p class="cess">{{glucose_level_means}}</p>
+      </div>
     </div>
-  </div>
-  <div class="report-body col-md-12" id="report-body">
-    <h3 class="title">Recommendations (التوصيات الطبية)</h3>
-    <div class="report-point">
-      <div class="row">
-        <div class="result-exp col-md-12">
-          <div>
-            <i class="fa fa-info-circle" aria-hidden="true"></i>
-            What a diabetic should do: <p class="cess">{{diabetic_do}}</p>
+    <div class="report-body col-md-12" id="report-body">
+      <h3 class="title">Recommendations (التوصيات الطبية)</h3>
+      <div class="report-point">
+        <div class="row">
+          <div class="result-exp col-md-12">
+            <div>
+              <i class="fa fa-info-circle" aria-hidden="true"></i>
+              What a diabetic should do: <p class="cess">{{diabetic_do}}</p>
+            </div>
           </div>
-        </div>
-        <div class="col-md-6">
-          <mat-form-field>
-            <input matInput placeholder="Pharmacist Name">
-          </mat-form-field>
-        </div>
-        <div class="col-md-6">
-          <i class="fa fa-phone-square" aria-hidden="true"></i>&nbsp;
-          <mat-form-field style="width:90%">
-            <input matInput placeholder="Contact Pharmacist" type="number">
-          </mat-form-field>
-        </div>
-        <div class="col-md-12">
-          <div class="form-group">
-            <label> Pharmacist's Notes:</label>
-            <textarea rows="2" cols="80" class="form-control"></textarea>
+          <div class="col-md-6">
+            <mat-form-field>
+              <input matInput placeholder="Pharmacist Name">
+            </mat-form-field>
           </div>
-        </div>
-        <div class="col-md-6">
-          <mat-form-field>
-            <input matInput placeholder="Physician Name">
-          </mat-form-field>
-        </div>
-        <div class="col-md-6">
-          <mat-form-field>
-            <input matInput placeholder="Physician Contact" type="number">
-          </mat-form-field>
-        </div>
-        <div class="col-md-12">
-          <div class="form-group">
-            <label> Physician's Notes:</label>
-            <textarea rows="2" cols="80" class="form-control"></textarea>
+          <div class="col-md-6">
+            <i class="fa fa-phone-square" aria-hidden="true"></i>&nbsp;
+            <mat-form-field style="width:90%">
+              <input matInput placeholder="Contact Pharmacist" type="number">
+            </mat-form-field>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label> Pharmacist's Notes:</label>
+              <textarea rows="2" cols="80" class="form-control"></textarea>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <input matInput placeholder="Physician Name">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field>
+              <input matInput placeholder="Physician Contact" type="number">
+            </mat-form-field>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label> Physician's Notes:</label>
+              <textarea rows="2" cols="80" class="form-control"></textarea>
+            </div>
           </div>
         </div>
       </div>

@@ -1,0 +1,22 @@
+.admin-wrapper{
+    min-height: 100%;
+    background-color: green;
+    padding: 30px;
+}
+
+.mat-card{
+    height: -webkit-fill-available;
+    justify-content: center;
+    display: flex;
+    padding: 30px;
+    margin-top: 30px;
+}
+
+.buttons{
+    text-align: center;
+}
+
+.list{
+    width: 90%;
+    box-shadow: 15px 15px #DEDEDE;
+}

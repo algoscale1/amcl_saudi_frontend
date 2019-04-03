@@ -13,6 +13,7 @@ import * as FusionCharts from 'fusioncharts';
 import * as Widgets from 'fusioncharts/fusioncharts.widgets';
 
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+import { NgxPrintModule } from 'ngx-print';
 
 FusionChartsModule.fcRoot(FusionCharts, Widgets, FusionTheme);
 
@@ -44,6 +45,7 @@ import { EditAccountComponent } from './Components/logged-in/account/edit-accoun
 import { DosageCalculatorComponent } from './Components/logged-in/resources/dosage-calculator/dosage-calculator.component';
 import { FiltersPipe } from './Components/logged-in/med-review/patient-review/filters.pipe';
 import { SupplemetsComponent } from './Components/logged-in/med-review/patient-review/supplemets/supplemets.component';
+import { AdminComponent } from './Components/logged-in/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +72,8 @@ import { SupplemetsComponent } from './Components/logged-in/med-review/patient-r
     EditAccountComponent,
     DosageCalculatorComponent,
     FiltersPipe,
-    SupplemetsComponent
+    SupplemetsComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -83,6 +86,7 @@ import { SupplemetsComponent } from './Components/logged-in/med-review/patient-r
     HttpClientModule,
     RatingModule,
     FusionChartsModule,
+    NgxPrintModule,
     NgCircleProgressModule.forRoot({
       "radius": 60,
       "space": -10,

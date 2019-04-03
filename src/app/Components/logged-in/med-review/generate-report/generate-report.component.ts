@@ -58,7 +58,8 @@ export class GenerateReportComponent implements OnInit {
               // "numberSuffix": "%",
               "chartBottomMargin": "20",
               "valueFontSize": "11",
-              "valueFontBold": "0"
+              "valueFontBold": "0",
+              "previous_value": element.privious_score
             },
             // Gauge Data
             "colorRange": {
@@ -116,7 +117,7 @@ export class GenerateReportComponent implements OnInit {
           // "numberSuffix": "%",
           "chartBottomMargin": "20",
           "valueFontSize": "11",
-          "valueFontBold": "0"
+          "valueFontBold": "0",
         },
         // Gauge Data
         "colorRange": {
@@ -185,6 +186,10 @@ export class GenerateReportComponent implements OnInit {
       }
 
     })
+  }
+
+  print() {
+    window.print();
   }
 
 }

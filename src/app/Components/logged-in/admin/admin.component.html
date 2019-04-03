@@ -1,0 +1,35 @@
+<div class="admin-wrapper">
+  <h2>Welcome Admin
+    <a style="cursor:pointer;" class="float-right" (click)="onLogout()">
+      <i class="fa fa-sign-out" aria-hidden="true"></i>Logout
+    </a>
+  </h2>
+  <!-- <h3 class="float-right"></h3> -->
+  <mat-card>
+    <table class="table table-hover table-bordered list">
+      <thead>
+        <tr style="color: green">
+          <th width="80%" scope="col">Doctor's Name</th>
+          <th width="10%" scope="col">Enable/Disable</th>
+          <th width="10%" scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let doctor of doctorList">
+          <td>{{doctor.name}}</td>
+          <td class="buttons">
+            <button mat-flat-button style="color:green;" *ngIf="!doctor.isVerified"
+              (click)="onEdit(doctor._id, doctor.isVerified)">Enable</button>
+            <button mat-flat-button color="accent" *ngIf="doctor.isVerified"
+              (click)="onEdit(doctor._id, !doctor.isVerified)">Disable</button>
+          </td>
+          <td class="buttons">
+            <button mat-flat-button color="warn" (click)="onDelete(doctor._id)">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </mat-card>
+</div>

@@ -29,7 +29,8 @@ export class LogInService {
         this.userName = res['data'].name;
         this.group = res['data'].group;
         localStorage.setItem('token', res['data'].token);
-        return true;
+        localStorage.setItem('group', res['data'].group);
+        return res['data'];
       }),
       catchError((err) => {
         return throwError(err.error.status);

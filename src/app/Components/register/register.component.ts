@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
       email: new FormControl('', [Validators.email, Validators.required]),
       password: new FormControl('', Validators.required),
       cPassword: new FormControl('', Validators.required),
-      profileImg: new FormControl('', Validators.required)
+      profileImg: new FormControl('')
     });
   }
 
@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
   onRegister() {
 
     let data = new FormData();
-    data.append('name', this.registerForm.controls['fname'].value + ' ' + this.registerForm.controls['lname'].value);
+    data.append('name', this.registerForm.controls['name'].value);
     data.append('email', this.registerForm.controls['email'].value);
     data.append('phone', this.registerForm.controls['phone'].value);
     data.append('password', this.registerForm.controls['password'].value);

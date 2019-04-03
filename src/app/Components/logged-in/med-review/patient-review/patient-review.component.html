@@ -126,19 +126,19 @@
               <input matInput placeholder="List Allergies" formControlName="list_allergies">
             </mat-form-field>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-6">
             <mat-form-field>
               <input matInput placeholder="Supplements" formControlName="supplements">
             </mat-form-field>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <mat-form-field>
               <mat-select placeholder="Caffeine" formControlName="caffeine">
                 <mat-option *ngFor="let opt of option" [value]="opt.value">{{opt.name}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <mat-form-field>
               <mat-select placeholder="Alcohol" formControlName="alcohol">
                 <mat-option *ngFor="let opt of option" [value]="opt.value">{{opt.name}}</mat-option>

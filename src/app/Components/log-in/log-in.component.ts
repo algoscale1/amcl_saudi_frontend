@@ -33,8 +33,13 @@ export class LogInComponent implements OnInit {
 
     this.logInService.logIn(data).subscribe(
       res => {
-        // console.log(res);
-        this.router.navigate(['/community']);
+        console.log(res);
+        if (res['group'] == 1)
+          this.router.navigate(['/admin']);
+
+        else
+          this.router.navigate(['/community']);
+
       },
       err => {
         if (err == 401) {

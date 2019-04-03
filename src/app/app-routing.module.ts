@@ -12,6 +12,8 @@ import { ResourcesComponent } from './Components/logged-in/resources/resources.c
 import { GenerateReportComponent } from './Components/logged-in/med-review/generate-report/generate-report.component';
 import { AccountComponent } from './Components/logged-in/account/account.component';
 import { PatientReviewComponent } from './Components/logged-in/med-review/patient-review/patient-review.component';
+import { AdminComponent } from './Components/logged-in/admin/admin.component';
+import { AdminGuard } from './Authentication/admin.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'logIn', pathMatch: 'full' },
@@ -27,7 +29,8 @@ const routes: Routes = [
       { path: 'tools', component: ResourcesComponent },
       { path: 'account', component: AccountComponent }
     ], canActivateChild: [AuthGuard]
-  }
+  },
+  { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] }
 ];
 
 @NgModule({

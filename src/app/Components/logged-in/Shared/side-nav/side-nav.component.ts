@@ -15,6 +15,7 @@ export class SideNavComponent implements OnInit {
 
   logOut() {
     localStorage.removeItem('token');
+    localStorage.removeItem('group');
     this.router.navigate(['/logIn']);
   }
 }

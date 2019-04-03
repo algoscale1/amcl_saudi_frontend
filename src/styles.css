@@ -12,13 +12,30 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
     border-color:green;
-  }
+}
   
-  .mat-radio-button.mat-accent .mat-radio-inner-circle{
+.mat-radio-button.mat-accent .mat-radio-inner-circle{
     color:green;
     background-color:green;
-  }
+}
   
-  .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
       background-color:green;
+}
+
+@media print{
+  body{
+    width: 100%;
+    height: 100%;
   }
+  .mat-sidenav{
+      visibility: hidden !important;
+      display: none !important;
+  }
+  .report-wrapper{
+      visibility: visible;
+      width: 100%;
+      width: -webkit-fill-available;
+      height: 100%;
+  }
+}
