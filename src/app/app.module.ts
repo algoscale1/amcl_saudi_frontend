@@ -13,7 +13,7 @@ import * as FusionCharts from 'fusioncharts';
 import * as Widgets from 'fusioncharts/fusioncharts.widgets';
 
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-import { NgxPrintModule } from 'ngx-print';
+// import { NgxPrintModule } from 'ngx-print';
 
 FusionChartsModule.fcRoot(FusionCharts, Widgets, FusionTheme);
 
@@ -86,7 +86,7 @@ import { AdminComponent } from './Components/logged-in/admin/admin.component';
     HttpClientModule,
     RatingModule,
     FusionChartsModule,
-    NgxPrintModule,
+    // NgxPrintModule,
     NgCircleProgressModule.forRoot({
       "radius": 60,
       "space": -10,
