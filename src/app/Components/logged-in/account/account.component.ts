@@ -12,7 +12,7 @@ import { EditAccountComponent } from './edit-account/edit-account.component';
 })
 export class AccountComponent implements OnInit {
 
-  doctorDetails = [];
+  doctorDetails;
   fname = '';
   lname = '';
 

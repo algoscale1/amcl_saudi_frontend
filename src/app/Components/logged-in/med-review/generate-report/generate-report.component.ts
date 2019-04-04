@@ -11,8 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 export class GenerateReportComponent implements OnInit {
 
   patientId = '';
-  patientInfo = [];
-  interactions: [];
+  patientInfo;
+  interactions;
   test = [];
   glucose_value;
   glucose_level;

@@ -19,7 +19,7 @@ export class AdminComponent implements OnInit {
 
     this.adminService.getAllDoctor().subscribe(
       res => {
-        console.log(res);
+        // console.log(res);
         this.doctorList = res;
       }
     );
@@ -34,7 +34,7 @@ export class AdminComponent implements OnInit {
 
     this.adminService.onEditDoctor(data).subscribe(
       res => {
-        console.log(res);
+        // console.log(res);
         this.ngOnInit();
       }
     );

@@ -224,10 +224,16 @@ export class PatientReviewComponent implements OnInit {
   onUpdate(data) {
 
     if (this.profileImg != undefined) {
-      data.append('profileImage', this.profileImg);
+      let image = new FormData();
+      image.append('profileImage', this.profileImg);
+      this.patientService.updatePatient(this.patientId, image).subscribe(
+        res => {
+          console.log('image updated');
+        }
+      )
     }
 
-    console.log(data)
+    // console.log(data)
 
     let bloodT = data;
     bloodT.blood_test = bloodT.blood_test.map(res => {

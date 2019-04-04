@@ -14,18 +14,13 @@ export class RegisterService {
 
   register(data) {
 
-    const httpOption = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-
-    return this.http.post(`${environment.API_url}/doctor/signup`, data, httpOption).pipe(
+    return this.http.post(`${environment.API_url}/doctor/signup`, data).pipe(
       map(res => true),
       catchError((err) => {
         // console.log(err)
         return throwError(err.error);
       })
     );
-  }
+  };
+
 }
