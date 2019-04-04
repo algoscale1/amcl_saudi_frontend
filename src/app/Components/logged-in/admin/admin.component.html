@@ -19,7 +19,7 @@
           <td>{{doctor.name}}</td>
           <td class="buttons">
             <button mat-flat-button style="color:green;" *ngIf="!doctor.isVerified"
-              (click)="onEdit(doctor._id, doctor.isVerified)">Enable</button>
+              (click)="onEdit(doctor._id, !doctor.isVerified)">Enable</button>
             <button mat-flat-button color="accent" *ngIf="doctor.isVerified"
               (click)="onEdit(doctor._id, !doctor.isVerified)">Disable</button>
           </td>
