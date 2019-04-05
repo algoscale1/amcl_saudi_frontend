@@ -138,7 +138,9 @@ export class DosageCalculatorComponent implements OnInit {
   };
 
   onReset() {
-    this.ngOnInit();
+    this.weight = null;
+    this.dosage = null;
+    this.result = null;
   }
 
 }

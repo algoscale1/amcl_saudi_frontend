@@ -8,6 +8,7 @@ import { RatingModule } from "ngx-rating";
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { FusionChartsModule } from 'angular-fusioncharts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 import * as FusionCharts from 'fusioncharts';
 import * as Widgets from 'fusioncharts/fusioncharts.widgets';
@@ -87,6 +88,7 @@ import { AdminComponent } from './Components/logged-in/admin/admin.component';
     RatingModule,
     FusionChartsModule,
     // NgxPrintModule,
+    NgMultiSelectDropDownModule.forRoot(),
     NgCircleProgressModule.forRoot({
       "radius": 60,
       "space": -10,

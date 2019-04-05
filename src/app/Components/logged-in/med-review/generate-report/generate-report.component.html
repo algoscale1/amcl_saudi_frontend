@@ -75,7 +75,7 @@
           *ngFor="let indication of patientInfo.pre_existing_conditions">{{indication.indication}},&nbsp;</label><br>
 
         List of medications : <br>
-        <p style="margin-left:10px;" class="cess" *ngFor="let med of patientInfo.medication_history">(Ndc: {{med.ndc}})
+        <p class="cess" *ngFor="let med of patientInfo.medication_history">(Ndc: {{med.ndc}})
           {{med.brand_name}} (Manufacturer: {{med.manufacterer}}) <br>
           &nbsp;Dosages : <label style="color:black;" *ngFor="let dosage of med.doses"> {{dosage}}</label>
           <label *ngIf="med.price">Prices : {{med.price}}</label>

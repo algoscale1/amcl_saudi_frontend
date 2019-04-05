@@ -45,7 +45,7 @@ export class AdminComponent implements OnInit {
     this.adminService.onDeleteDoctor(id).subscribe(
       res => {
         console.log(res);
-        this.snackbar.open('Doctor Deleted successfully', '', {
+        this.snackbar.open('Physician Deleted successfully', '', {
           duration: 2000,
         });
         this.ngOnInit();

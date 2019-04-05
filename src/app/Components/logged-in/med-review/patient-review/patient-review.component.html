@@ -21,7 +21,7 @@
   <div class="review-block" *ngIf="initiatReview">
     <form [formGroup]="patientForm">
       <div class="review col-md-12">
-        <label>Is the patient present :</label>
+        <label>Is this patient present :</label>
         <mat-radio-group formControlName="present">
           <mat-radio-button value="yes">Yes</mat-radio-button>&nbsp;
           <mat-radio-button value="no">No</mat-radio-button>
@@ -30,8 +30,10 @@
       <div class="card-body">
         <div class="row" style="margin:0px;">
           <div class="col-md-9 register-body">
-            <i class="fa fa-pencil" aria-hidden="true" style="color:blue"></i>&nbsp;
-            <h5 style="display: inline;">Summary</h5>
+            <div style="margin-bottom:10px;">
+              <i class="fa fa-pencil" aria-hidden="true" style="color:blue"></i>&nbsp;
+              <h5 style="display: inline;">Summary</h5>
+            </div>
             <div class="row">
               <div class="col-md-8">
                 <mat-form-field class="input">
@@ -81,26 +83,35 @@
         </div>
       </div>
       <div class="register-body">
-        <i class="fa fa-medkit" aria-hidden="true" style="color:blue;"></i>&nbsp;
-        <h5 style="display:inline">Patient Medical Information</h5>
+        <div style="margin-bottom: 10px;">
+          <i class="fa fa-medkit" aria-hidden="true" style="color:blue;"></i>&nbsp;
+          <h5 style="display:inline;">Patient Medical Information</h5>
+        </div>
         <div class="row">
           <div class="col-md-6">
-            <mat-form-field>
+            <!-- <mat-form-field>
               <mat-select placeholder="Pre-existing Conditions" formControlName="pre_existing_conditions"
                 (ngModelChange)="onselectIndication()" multiple>
                 <mat-form-field style="padding: 0 15px;">
                   <input matInput placeholder="Search..." [(ngModel)]="search_cond"
                     [ngModelOptions]="{standalone: true}">
                 </mat-form-field>
-                <mat-option *ngFor="let indication of indicationList | filters:search_cond:'indication' "
-                  [value]="indication._id">
+                <mat-option
+                  *ngFor="let indication of indicationList | filters:search_cond:'indication': patientForm.controls['pre_existing_conditions'].value "
+                  [value]="indication">
                   {{indication.indication}}
                 </mat-option>
               </mat-select>
-            </mat-form-field>
+            </mat-form-field> -->
+
+            <ng-multiselect-dropdown [placeholder]="'Pre-existing Conditions'" [data]="indicationList"
+              formControlName="pre_existing_conditions" [settings]="IndicationSettings"
+              (onSelect)="onselectIndication()">
+            </ng-multiselect-dropdown>
+
           </div>
           <div class="col-md-6">
-            <mat-form-field>
+            <!-- <mat-form-field>
               <mat-select placeholder="Medication history" formControlName="medication_history" multiple>
                 <mat-form-field style="padding: 0 15px;">
                   <input matInput placeholder="Search..." [(ngModel)]="search_med"
@@ -112,8 +123,15 @@
                   <label *ngFor="let dosage of med.doses"> {{dosage}})</label>
                 </mat-option>
               </mat-select>
-            </mat-form-field>
+            </mat-form-field> -->
+
+            <ng-multiselect-dropdown [placeholder]="'Medication history'" [data]="drugList"
+              formControlName="medication_history" [settings]="MedSettings">
+            </ng-multiselect-dropdown>
+
           </div>
+        </div>
+        <div class="row" style="margin-top:15px;">
           <div class="col-md-3">
             <mat-form-field>
               <mat-select placeholder="Allergies (حساسية)" formControlName="allergies">
@@ -148,9 +166,11 @@
         </div>
       </div>
       <div class="register-body">
-        <i class="fa fa-eye" aria-hidden="true" style="color:blue;"></i>&nbsp;
-        <h5 style="display:inline;">Genetic CYP Test Result (علامة وراثية) & Self Reported Concerns (التعليقات الطبية
-          المبلغ عنها)</h5>
+        <div style="margin-bottom:10px;">
+          <i class="fa fa-eye" aria-hidden="true" style="color:blue;"></i>&nbsp;
+          <h5 style="display:inline;">Genetic CYP Test Result (علامة وراثية) & Self Reported Concerns (التعليقات الطبية
+            المبلغ عنها)</h5>
+        </div>
         <div class="row">
           <div class="col-md-4">
             <mat-form-field>

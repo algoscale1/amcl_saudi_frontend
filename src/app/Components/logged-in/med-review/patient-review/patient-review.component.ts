@@ -42,6 +42,8 @@ export class PatientReviewComponent implements OnInit {
   search_cond = '';
   search_med = '';
   supplement = [];
+  IndicationSettings;
+  MedSettings;
 
   constructor(private patientService: PatientService, private router: Router, private route: ActivatedRoute,
     private snackBar: MatSnackBar, private _fb: FormBuilder, public dialog: MatDialog) {
@@ -113,6 +115,13 @@ export class PatientReviewComponent implements OnInit {
         // console.log(this.indicationList)
       }
     );
+
+    this.IndicationSettings = {
+      singleSelection: false,
+      idField: '_id',
+      textField: 'indication',
+      allowSearchFilter: true
+    };
   };
 
   getReviewForm() {
@@ -171,8 +180,14 @@ export class PatientReviewComponent implements OnInit {
 
   onselectIndication() {
 
+    let indi_id = [];
+
+    for (let i = 0; i < this.patientForm.controls['pre_existing_conditions'].value.length; i++) {
+      indi_id.push(this.patientForm.controls['pre_existing_conditions'].value[i]._id)
+    }
+
     let data = {
-      indication_id: this.patientForm.controls['pre_existing_conditions'].value
+      indication_id: indi_id
     }
 
     this.patientService.getDrugForEachIndication(data).subscribe(
@@ -180,10 +195,19 @@ export class PatientReviewComponent implements OnInit {
         this.drugList = res;
       }
     )
+
+    // console.log(this.drugList);
+
+    this.MedSettings = {
+      singleSelection: false,
+      idField: '_id',
+      textField: "brand_name",
+      allowSearchFilter: true
+    };
   };
 
   onSelectDrug(event) {
-    // console.log(this.patientForm);
+    console.log(event);
 
     // if (event._selected) {
 
@@ -233,32 +257,35 @@ export class PatientReviewComponent implements OnInit {
       )
     }
 
-    // console.log(data)
+    console.log(data)
 
-    let bloodT = data;
-    bloodT.blood_test = bloodT.blood_test.map(res => {
-      return {
-        key: res.key['key'],
-        range: res.key['range'],
-        value: res.value
-      }
-    })
+    let formdata = data;
 
-    // console.log(bloodT);
+    if (data.blood_test[0].key != undefined) {
+      formdata.blood_test = formdata.blood_test.map(res => {
+        return {
+          key: res.key['key'],
+          range: res.key['range'],
+          value: res.value
+        }
+      })
+    };
+
+    // console.log(formdata);
     // this.router.navigate([this.router.url + '/generate_report']);
 
 
-    this.patientService.updatePatient(this.patientId, bloodT).subscribe(
-      res => {
-        this.snackBar.open(res, '', {
-          duration: 2000
-        })
+    // this.patientService.updatePatient(this.patientId, formdata).subscribe(
+    //   res => {
+    //     this.snackBar.open(res, '', {
+    //       duration: 2000
+    //     })
 
-        // this.ifEdit = false;
-        this.router.navigate([this.router.url + '/generate_report']);
+    //     // this.ifEdit = false;
+    //     this.router.navigate([this.router.url + '/generate_report']);
 
-      }
-    );
+    //   }
+    // );
   };
 
 }
