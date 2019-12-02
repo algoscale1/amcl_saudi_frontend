@@ -36,4 +36,16 @@ export class SearchService {
     );
   };
 
+  otcSearch(params) {
+    return this.http.get(`${environment.API_url}/drug/otcDrug/get`, { params: params }).pipe(
+      map(res => res['data'])
+    );
+  }
+
+  otcDetails(id) {
+    return this.http.get(`${environment.API_url}/drug/otcDrug/get/${id}`).pipe(
+      map(res => res['data'])
+    );
+  }
+
 }

@@ -1,0 +1,93 @@
+<div class="review-block" *ngIf="patientData">
+  <mat-horizontal-stepper #stepper>
+
+    <ng-template matStepperIcon="edit" let-index="index">
+      {{index+1}}
+    </ng-template>
+
+    <mat-step>
+      <ng-template matStepLabel><b class="large">General Information</b></ng-template>
+
+      <app-general-info [patientData]="infoData" [id]="patient_id"></app-general-info>
+
+      <div class="float-right">
+        <button mat-raised-button color="primary" (click)="updateInfo()" matStepperNext>Next</button>
+      </div>
+
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel><b class="large">Patient Medical Information: Prescription Drugs</b></ng-template>
+
+      <app-indications [patientData]="indicationData"></app-indications>
+
+      <div class="float-right">
+        <button mat-raised-button color="warn" matStepperPrevious>Back</button>&nbsp;
+        <button mat-raised-button (click)="onUpdateIndication()" color="primary" matStepperNext>Next</button>
+      </div>
+
+    </mat-step>
+
+    <!-- <mat-step>
+      <ng-template matStepLabel><b class="large">Patient Medical Information: OTC Drugs</b></ng-template>
+
+      <app-otc-med [patientData]="otcData"></app-otc-med>
+
+      <div class="float-right">
+        <button mat-raised-button color="warn" matStepperPrevious>Back</button>&nbsp;
+        <button mat-raised-button (click)="onUpdateOtc()" color="primary" matStepperNext>Next</button>
+      </div>
+
+    </mat-step> -->
+
+    <mat-step>
+      <ng-template matStepLabel><b class="large">Genetic Testing, Vaccinations and Self-Reported Concerns</b>
+      </ng-template>
+
+      <app-vaccines [patientData]="vaccinesData"></app-vaccines>
+
+      <div class="float-right">
+        <button mat-raised-button color="warn" matStepperPrevious>Back</button>&nbsp;
+        <button mat-raised-button (click)="onUpdateVaccines()" color="primary" matStepperNext>Next</button>
+      </div>
+
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel><b class="large">Allergy and Reactions</b></ng-template>
+
+      <app-allergies [patientData]="allergyData"></app-allergies>
+
+      <div class="float-right">
+        <button mat-raised-button color="warn" matStepperPrevious>Back</button>&nbsp;
+        <button mat-raised-button (click)="onUpdateAllergy()" color="primary" matStepperNext>Next</button>
+      </div>
+
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel class="large"><b>Adherence</b></ng-template>
+
+      <app-adherance [patientData]="adheranceData" [medData]="allMed"></app-adherance>
+
+      <div class="float-right">
+        <button mat-raised-button color="warn" matStepperPrevious>Back</button>&nbsp;
+        <button mat-raised-button (click)="onUpdateAdherance()" color="primary" matStepperNext>Next</button>
+      </div>
+
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel><b class="large">Diet and Lifestyle</b></ng-template>
+
+      <app-diet-lifestyle [patientData]="lifestyleData"></app-diet-lifestyle>
+
+      <div class="float-right">
+        <button mat-raised-button color="warn" matStepperPrevious>Back</button>&nbsp;
+        <button mat-raised-button (click)="onUpdateLifestyle()" color="primary">Generate Report</button>
+      </div>
+
+    </mat-step>
+
+  </mat-horizontal-stepper>
+</div>

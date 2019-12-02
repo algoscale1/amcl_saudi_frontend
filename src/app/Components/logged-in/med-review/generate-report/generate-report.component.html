@@ -1,162 +1,856 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="basicInfo">
   <div class="print-icon float-right" style="padding: 10px; cursor: pointer;">
-    <a (click)="print()">
+    <a style="padding-right:20px;" (click)="print()">&nbsp;
       <i class="fa fa-print fa-2x" aria-hidden="true"></i>
     </a>
-    <a>
+    <a style="padding-right:20px;">
       <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
     </a>
+    <a>
+      <i class="fa fa-fax fa-2x" aria-hidden="true"></i>
+    </a>
   </div>
-  <div class="report-wrapper">
-    <h2 class="report-title">Patient Report</h2>
-    <div class="card-body col-md-12">
-      <h3 class="title">Summary</h3>
-      <div class="summary col-md-12">
-        <ul style="list-style-type:circle;" class="row">
-          <li class="col-md-6"><b>Name: </b> {{ patientInfo.name }}</li>
-          <li class="col-md-6"><b>DOB ( تاريخ الولادة:) [Yr.]: </b>{{ patientInfo.dob | date: 'dd/MM/yyyy' }}</li>
-          <li class="col-md-6"><b>Weight ( الوزن ) [ Kg ]: </b>{{patientInfo.weight }}Kg</li>
-          <li class="col-md-6"><b>Height (ارتفاع) [ m ]: </b>{{patientInfo.height }}m</li>
-          <li class="col-md-12"><b>Address: </b>{{ patientInfo.address }}</li>
-          <li class="col-md-12"><b>Medical history:(قائمة الأمراض) </b>
-            <label
-              *ngFor="let indication of patientInfo.pre_existing_conditions">{{indication.indication}},&nbsp;</label>
-          </li>
-          <li class="col-md-12"><b>Medications (قائمة الأدوية): </b>
-            <label *ngFor="let med of patientInfo.medication_history">{{med.brand_name}},&nbsp;</label>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="col-md-12 gauge-body">
-      <h4 class="text-center">Blood Glucose Level Result</h4>
-      <div class="disease-gauge">
-        <div class="outer">
-          <fusioncharts width="450" height="190" type="hlineargauge" [dataSource]="glucose_level"></fusioncharts>
-        </div>
-        <div class="row">
-          <div class="col-md-6 gauge-value" style="text-align:right;padding: 0 20px;">
-            <p>Normal Range</p>
-            <h6>60 - 120</h6>
-          </div>
-          <div class="col-md-6 gauge-value" style="text-align:left;padding: 0 20px;">
-            <p>Previous Score</p>
-            <h6>{{patientInfo?.previous_glucose_level}}</h6>
-          </div>
+
+  <h2 class="report-title">Patient Report</h2>
+
+  <mat-horizontal-stepper linear #stepper>
+    <ng-template matStepperIcon="edit" let-index="index">
+      {{index+1}}
+    </ng-template>
+
+    <mat-step>
+      <ng-template matStepLabel><b class="large">General Information and Medical Summary</b></ng-template>
+      <div class="card-body col-md-12">
+        <h2 class="title">General Information</h2>
+        <div class="summary col-md-12">
+          <ul style="list-style-type:circle;" class="row">
+            <li class="col-md-6"><b class="large">Name: </b> &nbsp; <span>{{ basicInfo?.name }}</span></li>
+            <li class="col-md-6"><b class="large">Gender: </b>&nbsp; <span>{{ basicInfo?.gender }}</span>
+            </li>
+            <li class="col-md-6"><b class="large">Weight ( الوزن ): </b> &nbsp;<span>{{basicInfo?.weight }}lbs</span>
+            </li>
+            <li class="col-md-6"><b class="large">Height (ارتفاع): </b>&nbsp; <span>{{basicInfo?.height }}</span>
+            </li>
+            <li class="col-md-6"><b class="large">DOB ( تاريخ الولادة ): </b>&nbsp;
+              <span>{{ basicInfo?.dob | date: 'MMM d, y' }}</span>
+            </li>
+            <li class="col-md-6"><b class="large">Marital Status: </b>&nbsp;
+              <span>{{ basicInfo?.marital_status }}</span>
+            </li>
+            <li class="col-md-12"><b class="large">Address: </b>&nbsp; <span>{{ basicInfo?.mailing_address }}</span>
+            </li>
+          </ul>
         </div>
       </div>
-    </div>
-    <div class="col-md-12 gauge-body">
-      <h4 class="text-center">Blood Test Result (نتائج فحص الدم)</h4>
-      <div class="row">
-        <div class="col-md-3" *ngFor="let test of test">
-          <div class="disease-gauge">
-            <div class="outer">
-              <fusioncharts width="225" height="190" type="hlineargauge" [dataSource]="test"></fusioncharts>
+
+      <div class="result-body">
+        <h2 class="title">Drug Summary</h2>
+
+        <div class="alert-body">
+
+          <div>
+            <b class="large">List of Medications</b>
+            <div style="margin: 15px 0;">
+              <table mat-table [dataSource]="all_indication">
+
+                <ng-container matColumnDef="NDC">
+                  <th mat-header-cell *matHeaderCellDef> NDC Code </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.drug?.ndc}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef> Drug Name </th>
+                  <td mat-cell *matCellDef="let element">
+                    <button mat-stroked-button
+                      (click)="fetchDetails(element.drug._id)">{{element?.drug?.brand_name | titlecase }}</button>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="manufacturer">
+                  <th mat-header-cell *matHeaderCellDef> Manufacturer </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.drug?.manufacterer | titlecase}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="dosage">
+                  <th mat-header-cell *matHeaderCellDef> Dosage </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.drug?.doses}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="cost">
+                  <th mat-header-cell *matHeaderCellDef> NADAC cost </th>
+                  <td mat-cell *matCellDef="let element">{{element?.drug?.price ? element?.drug?.price : 'NA'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="condition">
+                  <th mat-header-cell *matHeaderCellDef> Related Condition </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.condition}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="directions">
+                  <th mat-header-cell *matHeaderCellDef> Directions </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.directions}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="prescriber">
+                  <th mat-header-cell *matHeaderCellDef> Prescriber </th>
+                  <td mat-cell *matCellDef="let element"> {{element?.prescriber}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+
             </div>
+          </div>
+
+          <!-- <div class="pd-15 disease bord-line">
             <div class="row">
-              <div class="col-md-6 gauge-value">
-                <p>Normal Range</p>
-                <h6>{{test.chart.lowerLimit}} - {{test.chart.upperLimit}}</h6>
+              <div class="col-md-3">
+                <b>Common Indications</b>
               </div>
-              <div class="col-md-6 gauge-value">
-                <p>Previous Score</p>
-                <h6>{{test.chart.previous_value}}</h6>
+              <div class="col-md-3">
+                <b>Common Classes</b>
+              </div>
+              <div class="col-md-2">
+                <b>Common Drugs</b>
+              </div>
+              <div class="col-md-2">
+                <b>Instructions</b>
+              </div>
+              <div class="col-md-2">
+                <b>Prescriber</b>
+              </div>
+            </div>
+            <hr class="bk-black">
+            <div *ngFor="let med of patientInfo.common_prescription">
+              <div class="row grey">
+                <div class="col-md-3 mr-auto">
+                  <p>{{med?.common_indications?.key}}</p>
+                </div>
+                <div class="col-md-3 mr-auto">
+                  <p>{{med?.common_classes?.key}}</p>
+                </div>
+                <div class="col-md-2 mr-auto">
+                  <p>{{med?.common_drugs }}</p>
+                </div>
+                <div class="col-md-2">
+                  <p>{{med?.directions}}</p>
+                </div>
+                <div class="col-md-2">
+                  <p>{{med?.prescriber}}</p>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+          <br><br>
+
+          <div class="pd-15 disease bord-line">
+            <div class="row">
+              <div class="col-md-3">
+                <b>Drugs</b>
+              </div>
+              <div class="col-md-3">
+                <b>Related Condition </b>
+              </div>
+              <div class="col-md-2">
+                <b>Instructions</b>
+              </div>
+              <div class="col-md-2">
+                <b>Comments on Drug Treatment</b>
+              </div>
+              <div class="col-md-2">
+                <b>Prescriber</b>
+              </div>
+            </div>
+            <hr class="bk-black">
+            <div *ngFor="let med of patientInfo.extra_drug">
+              <div class="row grey">
+                <div class="col-md-3 mr-auto">
+                  <p>{{med?.drug?.brand_name}}</p>
+                </div>
+                <div class="col-md-3">
+                  <p>{{med?.condition}}</p>
+                </div>
+                <div class="col-md-2">
+                  <p>{{med?.directions}}</p>
+                </div>
+                <div class="col-md-2 mr-auto">
+                  <p>{{med?.comments}}</p>
+                </div>
+                <div class="col-md-2">
+                  <p>{{med?.prescriber}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br>
+
+          <b>Drug Alerts</b>
+          <div class="med-list pd-15 bord-line">
+            <div *ngFor="let ques of all_questions">
+              <label class="red">( {{ques?.drug}} )</label>&nbsp;
+              <label class="black">{{ques?.question}} :</label>&nbsp;
+              <span class="grey">{{ques?.answer |titlecase}}</span>
+              <div class="pl-15" *ngIf="ques.comments != ''">
+                <label class="grey">Comments on Drug Treatment:</label>&nbsp;
+                {{ques?.comments}}
+              </div>
+              <div class="pl-15" *ngIf="ques.notes">
+                <label class="grey">Note:</label>&nbsp;
+                {{ques?.notes}}
+              </div>
+            </div>
+          </div>
+
+          <!-- <br><br>
+
+          <div class="bord-line disease pd-15">
+            <div class="row">
+              <div class="col-md-3">
+                <b>Other Indications</b>
+              </div>
+              <div class="col-md-3">
+                <b>Drugs</b>
+              </div>
+              <div class="col-md-3">
+                <b>Directions for Use</b>
+              </div>
+              <div class="col-md-3">
+                <b>Prescriber</b>
+              </div>
+            </div>
+            <hr class="bk-black">
+            <div *ngFor="let med of patientInfo.medication_history">
+              <div class="row grey">
+                <div class="col-md-3 mr-auto">
+                  <p>{{med.pre_existing_conditions?.indication | titlecase}}</p>
+                </div>
+                <div class="col-md-3 mr-auto">
+                  <p>{{med.drug?.brand_name | titlecase}}</p>
+                </div>
+                <div class="col-md-3">
+                  <p>{{med.directions}}</p>
+                </div>
+                <div class="col-md-3">
+                  {{med.prescriber}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br>
+
+          <b>Drug Alerts</b>
+          <div class="med-list pd-15 bord-line">
+            <div *ngFor="let ques of patientInfo.question_ans">
+              <label class="black">{{ques.question}} :</label>&nbsp;
+              <span class="grey">{{ques.answer |titlecase}}</span>
+            </div>
+          </div> -->
+
+          <!-- <br><br>
+
+          <b>OTC Drugs</b>
+          <div class="bord-line disease pd-15">
+            <div class="row">
+              <div class="col-md-3">
+                <b>OTC Drug</b>
+              </div>
+              <div class="col-md-3">
+                <b>Related Condition</b>
+              </div>
+              <div class="col-md-2">
+                <b>Instructions</b>
+              </div>
+              <div class="col-md-2">
+                <b>Comments on Drug Treatment</b>
+              </div>
+              <div class="col-md-2">
+                <b>Prescriber</b>
+              </div>
+            </div>
+            <hr class="bk-black">
+            <div *ngFor="let med of patientInfo.otc_drugs_history">
+              <div class="row grey">
+                <div class="col-md-3 mr-auto">
+                  <p>{{med.drug?.brand_name | titlecase}}</p>
+                </div>
+                <div class="col-md-2 mr-auto">
+                  <p>{{med?.directions}}</p>
+                </div>
+                <div class="col-md-3 mr-auto">
+                  <p>{{med?.condition}}</p>
+                </div>
+                <div class="col-md-2 mr-auto">
+                  <p>{{med?.comments}}</p>
+                </div>
+                <div class="col-md-2 mr-auto">
+                  <p>{{med?.prescriber}}</p>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+        </div>
+      </div>
+
+      <div class="float-right">
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel><b class="large">Recommendation: Drug Details, Interactions and Substitutions</b>
+      </ng-template>
+
+      <h2 style="margin-top: 15px;" class="title">Drug Details</h2>
+      <!-- <div class="alert-body">
+
+
+          <div *ngIf="patientInfo.medication_history.length != 0">
+            <b class="large">List of Medications</b>
+            <div style="margin: 15px 0;">
+              <table mat-table [dataSource]="all_indication">
+
+                <ng-container matColumnDef="NDC">
+                  <th mat-header-cell *matHeaderCellDef> NDC Code </th>
+                  <td mat-cell *matCellDef="let element"> {{element.drug.ndc}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef> Drug Name </th>
+                  <td mat-cell *matCellDef="let element">
+                    <button mat-stroked-button
+                      (click)="fetchDetails(element._id)">{{element.drug.brand_name | titlecase }}</button>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="manufacturer">
+                  <th mat-header-cell *matHeaderCellDef> Manufacturer </th>
+                  <td mat-cell *matCellDef="let element"> {{element.drug.manufacterer | titlecase}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="dosage">
+                  <th mat-header-cell *matHeaderCellDef> Dosage </th>
+                  <td mat-cell *matCellDef="let element"> {{element.drug.doses}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="cost">
+                  <th mat-header-cell *matHeaderCellDef> NADAC cost </th>
+                  <td mat-cell *matCellDef="let element">{{element.drug?.price ? element.drug?.price : 'NA'}} </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="condition">
+                  <th mat-header-cell *matHeaderCellDef> Related Condition </th>
+                  <td mat-cell *matCellDef="let element"> {{element.condition}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="directions">
+                  <th mat-header-cell *matHeaderCellDef> Directions </th>
+                  <td mat-cell *matCellDef="let element"> {{element.directions}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="prescriber">
+                  <th mat-header-cell *matHeaderCellDef> Prescriber </th>
+                  <td mat-cell *matCellDef="let element"> {{element.prescriber}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+
+            </div>
+          </div>
+
+        </div> -->
+
+      <div class="report-body col-md-12" id="report-body">
+
+        <div class="alert-body" *ngIf="med_list?.length !=0">
+          <h5>Drug substitution is advised</h5>
+          <div style="margin: 15px 0;">
+            <table mat-table [dataSource]="med_list">
+
+              <ng-container matColumnDef="drugs">
+                <th mat-header-cell *matHeaderCellDef class="large">Drugs</th>
+                <td mat-cell *matCellDef="let element;let i = index;">
+                  <button mat-stroked-button color="warn" (click)="findSubstitute(element._id,i)">(NDC:
+                    {{element?.ndc}})
+                    {{ element?.brand_name | titlecase }}</button>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="substitute">
+                <th mat-header-cell *matHeaderCellDef class="large"> Selected Substitute </th>
+                <td mat-cell *matCellDef="let element"> {{ element?.substitute}} </td>
+              </ng-container>
+              <ng-container matColumnDef="comments">
+                <th mat-header-cell *matHeaderCellDef class="large"> Comments </th>
+
+                <td mat-cell *matCellDef="let element">
+                  <mat-form-field id="half-width"><input matInput type="text" [(ngModel)]="subsituteComments" />
+                  </mat-form-field>
+                </td>
+
+              </ng-container>
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef class="large"> Action </th>
+                <td mat-cell *matCellDef="let element;let i = index;">
+                  <button mat-button (click)="removeSubstitute(i)">
+                    <mat-icon>delete_forever</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="drugColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: drugColumns;"></tr>
+            </table>
+          </div>
+        </div>
+        <div *ngIf="med_list.length !=0" class="alert-body">
+
+          <b class="large">Drug Effects</b>
+
+          <ul>
+            <li *ngFor="let med of med_list" style="padding-bottom:15px;">
+              <label class="red" style="padding-bottom:10px;padding-top:10px;">{{med?.brand_name | titlecase }}</label>
+              <div class="row">
+
+                <div class="col-md-3" *ngIf="med?.side_effects">
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header style="background-color: rgb(37, 201, 223);">
+                      Side Effects
+                    </mat-expansion-panel-header>
+                    <!-- <p *ngIf="med?.side_effects" class="red pt-10">No side effects found</p> -->
+                    <mat-list class="panel">
+                      <mat-list-item *ngFor="let sub of med?.side_effects; let last=last">
+                        {{ sub | titlecase }}
+                        <mat-divider *ngIf="!last"></mat-divider>
+                      </mat-list-item>
+                    </mat-list>
+                  </mat-expansion-panel>
+                </div>
+
+                <div class="col-md-3" *ngIf="med?.food_int_details">
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header style="background-color: rgb(37, 201, 223);">
+                      Food-Drug Interaction
+                    </mat-expansion-panel-header>
+                    <!-- <p *ngIf="med.food_int_details; else food" class="red pt-10">No Interaction found</p> -->
+                    <!-- <ng-template #food> -->
+                    <p class="panel pt-10">{{med?.food_int_details}}</p>
+                    <!-- </ng-template> -->
+                  </mat-expansion-panel>
+                </div>
+
+                <div class="col-md-3" *ngIf="med?.alcohol_int_deatils">
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header style="background-color: rgb(37, 201, 223);">
+                      Alcohol-Drug Interaction
+                    </mat-expansion-panel-header>
+                    <!-- <p *ngIf="med.alcohol_int_deatils == ''; else alcohol" class="red pt-10">No Interaction found</p> -->
+                    <!-- <ng-template #alcohol> -->
+                    <p class="panel pt-10">{{med?.alcohol_int_deatils}}</p>
+                    <!-- </ng-template> -->
+                  </mat-expansion-panel>
+                </div>
+
+                <div class="col-md-3" *ngIf="med?.caffeine_int">
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header style="background-color: rgb(37, 201, 223);">
+                      Caffeine-Drug Interaction
+                    </mat-expansion-panel-header>
+                    <!-- <p *ngIf="med.caffeine_int_details == ''; else caffeine" class="red pt-10">No Interaction found</p> -->
+                    <!-- <ng-template #caffeine> -->
+                    <p class="panel pt-10">{{med?.caffeine_int}}</p>
+                    <!-- </ng-template> -->
+                  </mat-expansion-panel>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div *ngIf="interactions.length !=0" class="alert-body">
+          <b class="large">Drug-Drug Interaction</b>
+          <br>
+          <ul>
+            <li *ngFor="let interaction of interactions">
+              <button mat-stroked-button color="primary"
+                (click)="intDetail(interaction.drug1._id,interaction.drug2._id)">
+                (Ndc : {{interaction?.drug1?.ndc}}) {{interaction?.drug1?.brand_name | titlecase }} and
+                (Ndc : {{interaction?.drug2?.ndc}}) {{interaction?.drug2?.brand_name | titlecase }}</button><br>
+              Severity: <label class="grey mr-20">{{interaction?.severity}}</label><br>
+              <span *ngIf="interaction.management || interaction.generally_avoid">Explanation :</span>
+              <span *ngIf="interaction.management || interaction.generally_avoid"><i class="material-icons edit-size"
+                  (click)="editExpalnation(interaction.management,interaction._id)"> edit </i></span>
+              <label class="grey mr-20" *ngIf="!edit">
+                <label *ngIf="interaction.generally_avoid" class="grey mr-20">{{interaction?.generally_avoid}}</label>
+                <label *ngIf="interaction.management" class="grey mr-20">{{interaction?.management}}</label>
+                <!-- <label *ngIf="!interaction.management && !interaction.generally_avoid" class="red mr-20">No Explanation
+                    Found</label> -->
+              </label>
+              <div *ngIf="edit">
+                <mat-form-field class="example-full-width">
+                  <textarea matInput [(ngModel)]="interaction.management"></textarea>
+                </mat-form-field>
+                <button mat-raised-button color="primary" class="pull-right">Save</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="float-right">
+        <button mat-raised-button color="warn" matStepperPrevious>Back</button>&nbsp;
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel><b class="large">Genetic Testing, Vaccinations and Self-Reported Concerns</b>
+      </ng-template>
+
+      <div class="result-body">
+        <h2 class="title">Genetic Testing, Vaccinations and Self-Reported Concerns</h2>
+
+        <div class="alert-body">
+
+          <div *ngIf="patientInfo?.vaccines?.length != 0">
+            <b class="large">Reminders of vaccinations :</b>
+            <ul>
+              <div class="row">
+                <div class="col-md-6" *ngFor="let vac of patientInfo?.vaccines">
+                  <li>{{vac}}</li>
+                </div>
+              </div>
+            </ul>
+          </div>
+          <br>
+          <div>
+
+            <div *ngIf="patientInfo?.self_reported_concerns?.length !=0">
+              <b class="large">Self Reported Concerns :</b>
+              <ul>
+                <li class="red" *ngFor="let concern of patientInfo?.self_reported_concerns">{{concern}}</li>
+              </ul>
+            </div>
+
+            <!-- <div *ngIf="patientInfo?.self_reported_concerns_notes !=0">
+                <b class="large">Self Reported Concerns Notes :</b>&nbsp;
+                <label class="red">{{patientInfo?.self_reported_concerns_notes}}</label>
+              </div> -->
+            <br>
+          </div>
+        </div>
+      </div>
+
+      <div class="float-right">
+        <button mat-raised-button color="warn" matStepperPrevious>Back</button>&nbsp;
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel><b class="large">Allergies and Reactions</b></ng-template>
+      <div class="result-body">
+        <h2 class="title">Allergies and Reactions</h2>
+        <div class="alert-body">
+          <b class="large">Reported Allergies :</b>&nbsp;
+          <label>{{patientInfo.allergies | titlecase }}</label><br>
+          <b class="large">Reactions :</b>&nbsp;
+          <ul *ngIf="patientInfo?.reactions == [];else noReaction">
+            <li *ngFor="let reaction of patientInfo?.reactions">
+              {{reaction}}</li>
+          </ul>
+          <ng-template #noReaction>
+            <label class="red">No Reaction Found</label><br>
+          </ng-template>
+
+          <b class="large">Other Reactions :</b>&nbsp;
+          <label
+            *ngIf="patientInfo?.other_reactions;else noOtherReaction">{{patientInfo.other_reactions | titlecase }}</label>
+          <br>
+          <ng-template #noOtherReaction>
+            <label class="red">No Reaction Found</label><br>
+          </ng-template>
+        </div>
+      </div>
+      <div class="float-right">
+        <button mat-raised-button color="warn" matStepperPrevious>Back</button>&nbsp;
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel><b class="large">Drug Adherence</b></ng-template>
+
+      <div class="result-body">
+        <h2 class="title">Drug Adherence</h2>
+        <div class="alert-body">
+          <div *ngIf="patientInfo?.precription_not_taken">
+            <b class="large">Drug adherence :</b>&nbsp;
+            <label>{{ patientInfo?.precription_not_taken }}</label>
+          </div>
+          <br>
+          <div *ngIf="mprList[0]?.result !=null">
+            <b>MPR value for selected drugs : </b>
+            <li *ngFor="let item of mprList">
+              <span *ngIf="item?.med !='';else none"> {{item.med}} : {{item.result | number}} %</span>
+              <div *ngIf="item?.med !='' && item.result < 80;else noMPR" class="red">
+                <b> Note : </b>Patient is non-adherent and noncompliant as per MPR or PDC calculation values
+              </div>
+              <ng-template #noMPR>
+                <div class="red">
+                  <b>Note : </b>Patient is adherent and compliant as per MPR or PDC calculation values
+                </div>
+              </ng-template>
+              <br>
+            </li>
+
+            <div class="row">
+              <div class="col-md-4 mb-10" *ngFor="let test of mpr_graph">
+                <div class="disease-gauge  alert-body">
+                  <div class="outer">
+                    <fusioncharts width="250" height="190" type="hlineargauge" [dataSource]="test"></fusioncharts>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <br>
+          <div *ngIf="pdcList[0]?.result !=null">
+            <b>PDC value for selected drugs : </b>
+            <li *ngFor="let item of pdcList">
+              <span *ngIf="item?.med !='';else nonepdc">
+                {{item.med}} : {{item.result | number}} %
+              </span>
+              <div *ngIf="item?.med !='' && item?.result < 80;else noPDC" class="red">
+                <b>Note :</b> Patient is non-adherent and noncompliant as per MPR or PDC calculation values
+              </div>
+              <ng-template #noPDC>
+                <div class="red">
+                  <b>Note : </b>Patient is adherent and compliant as per MPR or PDC calculation values
+                </div>
+              </ng-template>
+              <br>
+            </li>
+
+            <div class="row">
+              <div class="col-md-4 mb-10" *ngFor="let test of pdc_graph">
+                <div class="disease-gauge  alert-body">
+                  <div class="outer">
+                    <fusioncharts width="250" height="190" type="hlineargauge" [dataSource]="test"></fusioncharts>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <br>
+
+          <div *ngIf="patientInfo?.mars?.length != 0">
+            <b>Medication Adherence Rating Scale (MARS) Test </b> : <span class="red"> {{comment}}</span>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="float-right">
+        <button mat-raised-button color="warn" matStepperPrevious>Back</button>&nbsp;
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel><b class="large">Alerts on Lifestyle</b></ng-template>
+
+      <div class="result-body">
+        <h2 class="title">Alerts on Lifestyle</h2>
+        <div class="alert-body">
+          <div class="row">
+
+            <div class="col-md-6">
+              <div *ngIf="patientInfo?.frequency_of_alchol == ''">
+                <b class="large">Frequency of alcohol and caffeine consumption :</b>&nbsp;
+                <label class="red">{{ patientInfo?.frequency_of_alchol }}</label>
+              </div>
+              <br>
+
+              <div *ngIf="patientInfo?.is_smoke == true">
+                <b class="large">Smoker : </b>&nbsp;
+                <label class="red">Yes</label>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="result-body">
-      <h3 class="title" style="color:red">Alerts (تحذيرات طبية)</h3>
-      <div class="alert-body">
-        Pre-existing conditions : <label class="cess"
-          *ngFor="let indication of patientInfo.pre_existing_conditions">{{indication.indication}},&nbsp;</label><br>
 
-        List of medications : <br>
-        <p class="cess" *ngFor="let med of patientInfo.medication_history">(Ndc: {{med.ndc}})
-          {{med.brand_name}} (Manufacturer: {{med.manufacterer}}) <br>
-          &nbsp;Dosages : <label style="color:black;" *ngFor="let dosage of med.doses"> {{dosage}}</label>
-          <label *ngIf="med.price">Prices : {{med.price}}</label>
-          <br>
-        </p>
-
-        Drug-Drug Interactions (التفاعلات الخطيرة بين الأدوية): <p class="cess" *ngIf="interactions == ''">No
-          Interaction
-          was Found</p>
-        <br>
-        <div *ngFor="let interaction of interactions" style="padding-left:15px;">
-          <p class="cess">{{interaction.drug1.brand_name}} and {{interaction.drug2.brand_name}}</p> :
-          Severity (مستوى الخطر):
-          <p class="cess">{{interaction.severity}}</p>
-          <p class="cess" *ngIf="!interactions">None</p><br>
-          Explanation ( التفسير الطبي ):<p class="cess" *ngIf="!interactions">None</p><br>
-          <br>
-        </div>
-
-        Allergies : <p class="cess">{{patientInfo.list_allergies}}</p><br>
-
-        Supplement : <label class="cess">{{patientInfo.supliment}}</label><br>
-
-        Alcohol : <label class="cess">{{patientInfo.alcohol}}</label><br>
-
-        Caffeine : <label class="cess">{{patientInfo.caffeine}}</label><br>
-        <!-- Vaccines : <label class="cess" *ngFor="let vaccines of patientInfo.vaccines">{{vaccines}},&nbsp;</label><br> -->
-        <!-- Self Reported Concerns : <p class="cess">
-        {{patientInfo.self_reported_concerns}}{{patientInfo.self_reported_concerns_notes}}</p><br> -->
-
-        Adherence : <p class="cess">None</p><br>
-        <!-- CYP Genetic Test Results : <p class="cess">{{patientInfo.cyp_genetic_test}}</p><br> -->
-
-        Glucose Test Result Means: <p class="cess">{{glucose_level_means}}</p>
+      <div class="float-right">
+        <button mat-raised-button color="warn" matStepperPrevious>Back</button>&nbsp;
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
       </div>
-    </div>
-    <div class="report-body col-md-12" id="report-body">
-      <h3 class="title">Recommendations (التوصيات الطبية)</h3>
-      <div class="report-point">
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel><b class="large">Alerts on Blood Test Results</b></ng-template>
+
+      <div class="gauge-body">
+        <h2 class="text-center title">Alerts on Blood Test Results</h2>
+        <div class="row" *ngIf="patientInfo?.blood_test?.length != 0">
+          <div class="col-md-4 mb-10" *ngFor="let test of test_blood">
+            <div class="disease-gauge  alert-body">
+              <div class="outer">
+                <fusioncharts width="250" height="190" type="hlineargauge" [dataSource]="test"></fusioncharts>
+              </div>
+              <div class="row mt-10">
+                <div class="col-md-6 gauge-value">
+                  <p>Normal Range</p>
+                  <h6>{{test?.chart?.lowerLimit}} - {{test?.chart?.upperLimit}}</h6>
+                </div>
+                <div class="col-md-6 gauge-value">
+                  <p>Previous Score</p>
+                  <h6>{{test?.chart?.privious_score}}</h6>
+                  <h6 *ngIf="!test.chart?.privious_score" class="red">N/A</h6>
+                </div>
+              </div>
+              <div class="result-exp ">
+                <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;
+                <span *ngIf="test?.chart?.description == ''" class="red">No Comments</span>
+                <span class="red">{{test?.chart?.description}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="float-right">
+        <button mat-raised-button color="warn" matStepperPrevious>Back</button>&nbsp;
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel><b class="large">Alerts on Glucose Level and Metabolic Panel</b></ng-template>
+
+      <div class="gauge-body">
+        <h2 class="text-center title">Alerts on Blood Glucose Level and Metabolic Panel</h2>
         <div class="row">
-          <div class="result-exp col-md-12">
-            <div>
-              <i class="fa fa-info-circle" aria-hidden="true"></i>
-              What a diabetic should do: <p class="cess">{{diabetic_do}}</p>
+          <div class="col-md-4 mb-10" *ngIf="patientInfo?.glucose_level != ''">
+            <div class="disease-gauge alert-body">
+              <div class="outer">
+                <fusioncharts width="250" height="190" type="hlineargauge" [dataSource]="glucose_level"></fusioncharts>
+              </div>
+              <div class="row mt-10">
+                <div class="col-md-6 gauge-value" style="text-align:right;padding: 0 20px;">
+                  <p>Normal Range</p>
+                  <h6>65 - 100</h6>
+                </div>
+                <div class="col-md-6 gauge-value" style="text-align:left;padding: 0 20px;">
+                  <p>Previous Score</p>
+                  <h6>{{patientInfo?.previous_glucose_level}}</h6>
+                  <h6 *ngIf="!patientInfo?.previous_glucose_level " class="red">N/A</h6>
+                </div>
+              </div>
+              <div class="result-exp ">
+                <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;
+                <span class="red">{{diabetic_do}}</span>
+              </div>
             </div>
           </div>
-          <div class="col-md-6">
-            <mat-form-field>
-              <input matInput placeholder="Pharmacist Name">
-            </mat-form-field>
-          </div>
-          <div class="col-md-6">
-            <i class="fa fa-phone-square" aria-hidden="true"></i>&nbsp;
-            <mat-form-field style="width:90%">
-              <input matInput placeholder="Contact Pharmacist" type="number">
-            </mat-form-field>
-          </div>
-          <div class="col-md-12">
-            <div class="form-group">
-              <label> Pharmacist's Notes:</label>
-              <textarea rows="2" cols="80" class="form-control"></textarea>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <mat-form-field>
-              <input matInput placeholder="Physician Name">
-            </mat-form-field>
-          </div>
-          <div class="col-md-6">
-            <mat-form-field>
-              <input matInput placeholder="Physician Contact" type="number">
-            </mat-form-field>
-          </div>
-          <div class="col-md-12">
-            <div class="form-group">
-              <label> Physician's Notes:</label>
-              <textarea rows="2" cols="80" class="form-control"></textarea>
+
+          <div class="col-md-4 mb-10" *ngFor="let test of test_metabolic">
+            <div class="disease-gauge  alert-body">
+              <div class="outer">
+                <fusioncharts width="250" height="190" type="hlineargauge" [dataSource]="test"></fusioncharts>
+              </div>
+              <div class="row mt-10">
+                <div class="col-md-6 gauge-value">
+                  <p>Normal Range</p>
+                  <h6>{{test?.chart?.lowerLimit}} - {{test?.chart?.upperLimit}}</h6>
+                </div>
+                <div class="col-md-6 gauge-value">
+                  <p>Previous Score</p>
+                  <h6>{{test?.chart?.privious_score}}</h6>
+                  <h6 *ngIf="!test.chart.privious_score" class="red">N/A</h6>
+                </div>
+              </div>
+              <div class="result-exp ">
+                <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;
+                <span *ngIf="test?.chart?.description == ''" class="red">No Comments</span>
+                <span class="red">{{test?.chart?.description}}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+
+      <div class="float-right">
+        <button mat-raised-button color="warn" matStepperPrevious>Back</button>&nbsp;
+        <button mat-raised-button color="primary" matStepperNext>Next</button>
+      </div>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel><b class="large">Pharmacist and Physician Notes</b></ng-template>
+
+      <div class="result-body">
+        <div class="alert-body">
+          <div class="report-point">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field>
+                  <input matInput placeholder="Pharmacist Name">
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <i class="fa fa-phone-square" aria-hidden="true"></i>&nbsp;
+                <mat-form-field style="width:90%">
+                  <input matInput placeholder="Pharmacist Contact Information" type="number">
+                </mat-form-field>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <b class="large"> Pharmacist's Notes</b>
+                  <textarea rows="2" cols="80" class="form-control"></textarea>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field>
+                  <input matInput placeholder="Physician Name">
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <i class="fa fa-phone-square" aria-hidden="true"></i>&nbsp;
+                <mat-form-field style="width:90%">
+                  <input matInput placeholder="Physician Contact Information" type="number">
+                </mat-form-field>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <b class="large">Physician's Notes</b>
+                  <textarea rows="2" cols="80" class="form-control"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="float-right">
+        <button mat-raised-button color="warn" matStepperPrevious>Back</button>&nbsp;
+        <!-- <button mat-raised-button color="primary" matStepperNext>Next</button> -->
+      </div>
+    </mat-step>
+
+  </mat-horizontal-stepper>
+
 </div>

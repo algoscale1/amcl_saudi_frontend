@@ -1,0 +1,23 @@
+<div class="register-body">
+  <h4 style="margin:0 0 10px 0;">Allergies and Reactions</h4>
+
+  <form [formGroup]="patientForm">
+    <b>Allergy</b>
+    <mat-form-field appearance="outline">
+      <input matInput placeholder="Enter Allergy" formControlName="allergies">
+    </mat-form-field>
+
+    <b>Reactions</b>
+    <mat-form-field appearance="outline">
+      <mat-select formControlName="reactions" multiple>
+        <mat-option *ngFor="let reaction of reportedReactions" [value]="reaction">{{reaction}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <b>Other Reactions</b>
+    <mat-form-field appearance="outline">
+      <input matInput placeholder="Add other reactions not listed above" formControlName="other_reactions">
+    </mat-form-field>
+
+  </form>
+</div>

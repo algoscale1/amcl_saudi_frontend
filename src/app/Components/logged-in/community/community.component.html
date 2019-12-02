@@ -1,23 +1,54 @@
 <div class="container-fluid community-wrapper">
   <h3>List of Patients</h3>
   <div class="container list">
-    <table class="table table-hover table-bordered">
-      <thead>
-        <tr style="color: green">
-          <th scope="col">First Name ( الاسم الاول )</th>
-          <th scope="col">Last Name ( الكنية )</th>
-          <th scope="col">Date of Birth ( تاريخ الولادة )</th>
-          <th scope="col">Date of Last Visit ( تاريخ الزيارة الأخيرة )</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let patientList of patientList">
-          <td>{{patientList.fname}}</td>
-          <td>{{patientList.lname}}</td>
-          <td>{{patientList.dob | date: 'dd/MM/yyyy'}}</td>
-          <td>{{patientList.last_interaction | date: 'dd/MM/yyyy' }}</td>
-        </tr>
-      </tbody>
-    </table>
+
+    <div class="mat-elevation-z8">
+      <form class="pd-h-20 bk-white" [formGroup]="filterForm">
+
+        <mat-form-field>
+          <input matInput (keyup)="searchFilters()" placeholder="Search" formControlName="search">
+        </mat-form-field>
+
+        <span class="menu-spacer"></span>
+
+        <button mat-flat-button color="accent" class="pull-right ml-10 mt-10" type="reset" (click)="clearAll()">
+          Clear All
+        </button>
+
+        <mat-form-field class="pull-right ml-10">
+          <input matInput [matDatepicker]="contractToDate" placeholder="Date of Birth" formControlName="dob"
+            (dateChange)="getDateOfBirth()" (dateInput)="getDateOfBirth()">
+          <mat-datepicker-toggle matSuffix [for]="contractToDate"></mat-datepicker-toggle>
+          <mat-datepicker #contractToDate></mat-datepicker>
+        </mat-form-field>
+
+      </form>
+      <hr class="mr-0 bk-white">
+      <table mat-table [dataSource]="patientList" matSort matSortDisableClear matSortDirection="desc">
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-stroked-button color="primary" routerLink='/reports/{{element._id}}'>{{element.name}}</button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dob">
+          <th mat-header-cell *matHeaderCellDef> Date of Birth </th>
+          <td mat-cell *matCellDef="let element"> {{element.dob | date: 'MMM d, y'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="interaction">
+          <th mat-header-cell *matHeaderCellDef> Date of last visit </th>
+          <td mat-cell *matCellDef="let element"> {{ element.last_interaction | date: 'MMM d, y'}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10,20]" showFirstLastButtons></mat-paginator>
+    </div>
+
   </div>
 </div>

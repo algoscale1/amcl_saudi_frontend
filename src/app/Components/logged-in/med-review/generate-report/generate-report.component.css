@@ -143,6 +143,67 @@
     width:100%;
 }
 
+.pl-15{
+    padding-left: 15px;
+}
+
+.pt-10{
+    padding-top: 10px;
+}
+
+.panel{
+    max-height: 300px;
+    overflow: auto;
+}
+
+.mb-10{
+    margin-bottom: 10px
+}
+
+.mt-10{
+    margin-top: 10px
+}
+
+li{
+    list-style-type:none!important;
+}
+.grey{
+    list-style: circle;
+}
+ul{
+    padding-left: 0px!important;
+}
+.title-blue{
+    color: blue!important;
+}
+
+.bord-line{
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 10px;
+    /* color: rgba(0,0,0,.12); */
+    padding: 5px;
+}
+
+.disease{
+    max-height: 300px;
+    overflow: auto;
+}
+
+.pd-15{
+    padding: 15px;
+}
+.edit-size{
+    font-size: 16px!important;
+    cursor: pointer;
+}   
+.mat-form-field #half-width{ 
+    width: 73%;
+}
+.icon-del{
+    cursor: pointer;
+}
+
 @media print{
     body{
         visibility: hidden !important;

@@ -14,6 +14,8 @@ import { AccountComponent } from './Components/logged-in/account/account.compone
 import { PatientReviewComponent } from './Components/logged-in/med-review/patient-review/patient-review.component';
 import { AdminComponent } from './Components/logged-in/admin/admin.component';
 import { AdminGuard } from './Authentication/admin.guard';
+import { PatientReportsComponent } from './Components/logged-in/med-review/patient-reports/patient-reports.component';
+import { ReviewReportsComponent } from './Components/logged-in/med-review/patient-reports/review-reports/review-reports.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'logIn', pathMatch: 'full' },
@@ -24,10 +26,11 @@ const routes: Routes = [
       { path: 'community', component: CommunityComponent },
       { path: 'add_patient', component: AddPatientComponent },
       { path: 'review_list', component: MedReviewComponent },
-      { path: 'review/:id', component: PatientReviewComponent },
-      { path: 'review/:id/generate_report', component: GenerateReportComponent },
-      { path: 'tools', component: ResourcesComponent },
-      { path: 'account', component: AccountComponent }
+      { path: 'reports/:id', component: PatientReportsComponent },
+      { path: 'reports/:id/:report_id', component: ReviewReportsComponent },
+      { path: 'reports/:id/:report_id/generate_report', component: GenerateReportComponent },
+      { path: 'resources', component: ResourcesComponent },
+      { path: 'account', component: AccountComponent },
     ], canActivateChild: [AuthGuard]
   },
   { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] }

@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Choose new substitute</h1>
+<div mat-dialog-content>
+
+  <mat-nav-list>
+    <mat-list-item *ngFor="let subs of data; let last=last">
+      <button mat-button [mat-dialog-close]="subs">
+        (NDC: {{ subs.ndc }}) {{ subs.brand_name | titlecase }} </button>
+      <mat-divider *ngIf="!last"></mat-divider>
+    </mat-list-item>
+  </mat-nav-list>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-stroked-button (click)="onNoClick()">Close</button>
+</div>

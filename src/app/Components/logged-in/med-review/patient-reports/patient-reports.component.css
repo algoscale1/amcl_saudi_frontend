@@ -1,0 +1,218 @@
+.review-wrapper{
+    /* justify-content: center; */
+    /* display: flex; */
+    padding: 45px;
+}
+
+table {
+    width: 100%;
+}
+
+th{
+    font-size: 18px;
+    color: black;
+}
+
+td{
+    font-size: 16px;
+}
+  
+h1{
+    color: black;
+}
+
+.heading > hr{
+    border-color: black;
+}
+
+
+.mat-nav-list{
+    padding: 5px;
+}
+
+.mat-nav-list > a{
+    padding-inline-start: 20px;
+}
+
+/* .mat-row:nth-child(even){
+    background-color:#DEDEDE;
+} */
+.mt-10{
+    margin-top: 10px;
+}
+.ml-10{
+    margin-left: 10px;
+}
+
+/* basic info */
+.review-wrapper{
+    padding: 20px;
+}
+
+.title{
+    color: black;
+    display: inline;
+    margin-right: 15px;
+}
+
+.review-block{
+    border-radius: 5px;
+    padding: 25px 20px 25px 30px;
+    background: white;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.review > label {
+    padding-right: 20px;
+    vertical-align: bottom;
+}
+
+.review > mat-form-field{
+    width: 100%;
+}
+
+.register-body{
+    height: 100% !important;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    padding: 30px;
+    background-color: #DEDEDE;
+}
+
+.smoke{
+    vertical-align: sub !important;
+}
+
+.review-btn{
+    margin-bottom: 10%;
+}
+
+.scroll{
+    height: 190px;
+    overflow-x: hidden;
+  /* width: 200px; */
+  /* border: 1px solid black; */
+}
+
+.mr-0{
+    margin: 0px;
+}
+
+.supp{
+    color:grey;
+    font-size: 12px;
+}
+
+.med-list{
+    height: 200px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.pad-10{
+    padding: 10px
+}
+
+.mb-10{
+    margin-bottom: 10px
+}
+
+.caution{
+    cursor: pointer;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    padding: 5px
+}
+/* .right{
+    margin-left: auto;
+    order: 2;
+} */
+
+.review-wrapper{
+    padding: 20px;
+}
+
+.title{
+    color: black;
+    display: inline;
+    margin-right: 15px;
+}
+
+.review-block{
+    border-radius: 5px;
+    padding: 25px 20px 25px 30px;
+    background: white;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.review > label {
+    padding-right: 20px;
+    vertical-align: bottom;
+}
+
+.review > mat-form-field{
+    width: 100%;
+}
+
+.register-body{
+    height: 100% !important;
+    margin-bottom: 20px;
+}
+
+.smoke{
+    vertical-align: sub !important;
+}
+
+.review-btn{
+    margin-bottom: 10%;
+}
+
+.scroll{
+    height: 190px;
+    overflow-x: hidden;
+  /* width: 200px; */
+  /* border: 1px solid black; */
+}
+
+.mr-0{
+    margin: 0px;
+}
+
+.supp{
+    color:grey;
+    font-size: 12px;
+}
+
+.med-list{
+    height: 200px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.pad-10{
+    padding: 10px
+}
+
+.mb-10{
+    margin-bottom: 10px
+}
+
+.caution{
+    cursor: pointer;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    padding: 5px
+}
+/* .right{
+    margin-left: auto;
+    order: 2;
+} */
+
+
+.fz-30{
+    font-size: 30px;
+}

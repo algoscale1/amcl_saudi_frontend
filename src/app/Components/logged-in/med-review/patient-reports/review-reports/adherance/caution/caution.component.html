@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Cautions</h1>
+<div mat-dialog-content>
+
+  <b class="large">Some words of caution for those using refill history to measure adherence:</b>&nbsp;
+  <ul>
+    <li>
+      All of the patient’s fill records for the assessed drug or regimen are necessary. Otherwise, it may appear as
+      though a patient is not consistently filling their prescriptions, and consequently, the MPR or PDC will be
+      reduced.
+    </li>
+    <li>
+      Entering the incorrect days’ supplied and other human errors can result in inaccurate results.
+    </li>
+    <li>
+      The results can be overstated due to early dose titrations and patients refilling early. Conversely, for patients
+      who are new to therapy, the fill date for the first dispensing can be much earlier than the actual first dose.
+      This might occur because the patient is awaiting administration training from the doctor or tapering off of
+      another medication, which can lead to a later-than-expected first refill and decrease the calculated MPR or PDC.
+    </li>
+  </ul>
+
+</div>
+<div mat-dialog-actions class="float-right">
+  <button mat-raised-button color="warn" (click)="onNoClick()">Close</button>
+</div>

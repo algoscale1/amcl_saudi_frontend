@@ -1,0 +1,62 @@
+<div class="review-wrapper">
+  <div class="card-body">
+
+    <div class="mat-elevation-z8">
+
+      <div class="bk-white pd-15">
+        <span class="fz-30">Reports List</span>
+        <button mat-raised-button color="primary" class="float-right" (click)="addReport()">Add New Report</button>
+      </div>
+
+      <hr class="bk-white mr-0">
+
+      <table mat-table [dataSource]="reports" matSort matSortDisableClear matSortDirection="desc">
+
+        <ng-container matColumnDef="#">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let element; let i=index;"> {{i+1}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="created_on">
+          <th mat-header-cell *matHeaderCellDef> Created At </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-stroked-button color="primary"
+              [matMenuTriggerFor]="menu">{{element.createdAt | date: 'MMM d, y'}}</button>
+            <mat-menu #menu="matMenu">
+              <button (click)="onEdit(element._id)" mat-menu-item>Review Report</button>
+              <button (click)="generateReport(element._id)" mat-menu-item>Generate Report</button>
+            </mat-menu>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="last_reviewed">
+          <th mat-header-cell *matHeaderCellDef> Last Interaction </th>
+          <td mat-cell *matCellDef="let element"> {{element.last_interaction | date: 'MMM d, y'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef> Edit </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button class="right">
+              <mat-icon class="example-icon green" (click)="onEdit(element._id)">edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef> Delete </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button class="right">
+              <mat-icon class="example-icon red" (click)="onDelete(element._id)">delete_forever</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5,10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+</div>

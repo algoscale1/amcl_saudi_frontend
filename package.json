@@ -36,6 +36,7 @@
     "ng-multiselect-dropdown": "^0.2.3",
     "ngx-print": "^1.1.4",
     "ngx-rating": "0.0.9",
+    "ngx-ui-loader": "^7.2.2",
     "popper.js": "^1.14.7",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",

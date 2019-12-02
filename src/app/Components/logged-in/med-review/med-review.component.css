@@ -1,17 +1,12 @@
 .review-wrapper{
-    justify-content: center;
-    display: flex;
+    /* justify-content: center; */
+    /* display: flex; */
     padding: 45px;
 }
 
 table{
-    width:90%;
+    width:-webkit-fill-available;
     padding: 20px;
-}
-
-.list {
-    width: 90% !important;
-    display: inline-block !important;
 }
 
 th{
@@ -24,6 +19,11 @@ td{
     padding: 0 !important;
 }
 
+.list {
+    width: 90% !important;
+    display: inline-block !important;
+}
+
 .mat-nav-list{
     padding: 5px;
 }
@@ -34,4 +34,10 @@ td{
 
 .mat-row:nth-child(even){
     background-color:#DEDEDE;
+}
+.mt-10{
+    margin-top: 10px;
+}
+.ml-10{
+    margin-left: 10px;
 }

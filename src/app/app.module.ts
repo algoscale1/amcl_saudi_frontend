@@ -9,6 +9,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { FusionChartsModule } from 'angular-fusioncharts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 
 import * as FusionCharts from 'fusioncharts';
 import * as Widgets from 'fusioncharts/fusioncharts.widgets';
@@ -47,6 +48,21 @@ import { DosageCalculatorComponent } from './Components/logged-in/resources/dosa
 import { FiltersPipe } from './Components/logged-in/med-review/patient-review/filters.pipe';
 import { SupplemetsComponent } from './Components/logged-in/med-review/patient-review/supplemets/supplemets.component';
 import { AdminComponent } from './Components/logged-in/admin/admin.component';
+import { PatientReportsComponent } from './Components/logged-in/med-review/patient-reports/patient-reports.component';
+import { DeleteReportComponent } from './Components/logged-in/med-review/patient-reports/delete-report/delete-report.component';
+import { ReviewReportsComponent } from './Components/logged-in/med-review/patient-reports/review-reports/review-reports.component';
+import { AdheranceComponent } from './Components/logged-in/med-review/patient-reports/review-reports/adherance/adherance.component';
+import { AllergiesComponent } from './Components/logged-in/med-review/patient-reports/review-reports/allergies/allergies.component';
+import { DietLifestyleComponent } from './Components/logged-in/med-review/patient-reports/review-reports/diet-lifestyle/diet-lifestyle.component';
+import { GeneralInfoComponent } from './Components/logged-in/med-review/patient-reports/review-reports/general-info/general-info.component';
+import { IndicationsComponent } from './Components/logged-in/med-review/patient-reports/review-reports/indications/indications.component';
+import { OtcMedComponent } from './Components/logged-in/med-review/patient-reports/review-reports/otc-med/otc-med.component';
+import { VaccinesComponent } from './Components/logged-in/med-review/patient-reports/review-reports/vaccines/vaccines.component';
+import { DrugDetailsComponent } from './Components/logged-in/med-review/generate-report/drug-details/drug-details.component';
+import { InteractionDetailsComponent } from './Components/logged-in/med-review/generate-report/interaction-details/interaction-details.component';
+import { SubstitutesComponent } from './Components/logged-in/med-review/generate-report/substitutes/substitutes.component';
+import { CautionComponent } from './Components/logged-in/med-review/patient-reports/review-reports/adherance/caution/caution.component';
+import { DeleteConfirmationComponent } from './Components/logged-in/med-review/delete-confirmation/delete-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +90,22 @@ import { AdminComponent } from './Components/logged-in/admin/admin.component';
     DosageCalculatorComponent,
     FiltersPipe,
     SupplemetsComponent,
-    AdminComponent
+    AdminComponent,
+    PatientReportsComponent,
+    DeleteReportComponent,
+    ReviewReportsComponent,
+    AdheranceComponent,
+    AllergiesComponent,
+    DietLifestyleComponent,
+    GeneralInfoComponent,
+    IndicationsComponent,
+    OtcMedComponent,
+    VaccinesComponent,
+    DrugDetailsComponent,
+    InteractionDetailsComponent,
+    SubstitutesComponent,
+    CautionComponent,
+    DeleteConfirmationComponent
   ],
   imports: [
     BrowserModule,
@@ -88,6 +119,7 @@ import { AdminComponent } from './Components/logged-in/admin/admin.component';
     RatingModule,
     FusionChartsModule,
     // NgxPrintModule,
+    NgxUiLoaderModule,
     NgMultiSelectDropDownModule.forRoot(),
     NgCircleProgressModule.forRoot({
       "radius": 60,
@@ -112,7 +144,17 @@ import { AdminComponent } from './Components/logged-in/admin/admin.component';
       multi: true
     }
   ],
-  entryComponents: [ErrorComponent, SideEffectsComponent, ChangePasswordComponent, EditAccountComponent, SupplemetsComponent],
+  entryComponents: [
+    ErrorComponent,
+    SideEffectsComponent,
+    ChangePasswordComponent,
+    EditAccountComponent,
+    SupplemetsComponent,
+    SubstitutesComponent,
+    DrugDetailsComponent,
+    CautionComponent,
+    DeleteConfirmationComponent,
+    InteractionDetailsComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

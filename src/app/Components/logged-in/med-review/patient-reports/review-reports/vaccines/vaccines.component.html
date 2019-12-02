@@ -1,0 +1,40 @@
+<div class="register-body">
+  <h4>Genetic Testing, Vaccinations and Self-Reported Concerns</h4>
+  <form [formGroup]="patientForm">
+
+    <div class="row p-30">
+      <div class="col-md-6">
+        <b>CYP Genetic Test Results</b>
+        <mat-form-field appearance="outline">
+          <mat-select formControlName="cyp_genetic_test">
+            <mat-option *ngFor="let cyp of cypTest" [value]="cyp">{{cyp}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <b>Any vaccination reminder?</b>
+        <mat-form-field appearance="outline">
+          <mat-select formControlName="vaccines" multiple>
+            <mat-option *ngFor="let vaccine of vaccines" [value]="vaccine">{{vaccine}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row p-30">
+      <div class="col-md-6">
+        <b>Self Reported Concerns</b>
+        <mat-form-field appearance="outline">
+          <mat-select formControlName="self_reported_concerns" multiple>
+            <mat-option *ngFor="let concern of reportedConcern" [value]="concern">{{concern}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <b>Additional Notes </b>
+        <mat-form-field appearance="outline">
+          <input matInput formControlName="additional_treatment">
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</div>

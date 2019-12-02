@@ -1,0 +1,108 @@
+<div class="register-body">
+  <h4>Patient Medical Information: OTC Drugs</h4>
+  <form [formGroup]="patientForm">
+    <div class="medication">
+      <!-- <u>
+        <h5>OTC Drugs</h5>
+      </u> -->
+      <div class="pd-15">
+        <div class="row mb-15">
+          <div class="col-md-5">
+            <b>Search OTC Drugs</b>
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Search..." [(ngModel)]="searchOtc" [ngModelOptions]="{standalone: true}"
+                (keyup)="getOtcDrugs()">
+            </mat-form-field>
+          </div>
+          <div class="col-md-5">
+            <b>Select OTC Drugs</b>
+            <mat-form-field appearance="outline">
+              <mat-select placeholder="medications" [(ngModel)]="selectedOtc" [ngModelOptions]="{standalone: true}">
+                <mat-option *ngFor="let data of otcList" [value]="data" matTooltip="(Ndc: {{data?.ndc}})">
+                  {{ data.brand_name | titlecase }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2 mr-auto">
+            <button *ngIf="selectedOtc" mat-flat-button color="primary" (click)="add_otc()">Add Drug</button>
+          </div>
+        </div>
+        <div class="bord-line disease pd-15">
+          <div class="row">
+            <div class="col-md-2">
+              <b>OTC Drug</b>
+            </div>
+            <div class="col-md-2">
+              <b>Instructions</b>
+            </div>
+            <div class="col-md-2">
+              <b>Related Condition</b>
+            </div>
+            <div class="col-md-2">
+              <b>Other Indication</b>
+            </div>
+            <div class="col-md-2">
+              <b>Comments on drug treatment</b>
+            </div>
+            <div class="col-md-1">
+              <b>Prescriber</b>
+            </div>
+            <div class="col-md-1">
+              <b>Action</b>
+            </div>
+          </div>
+          <hr class="bk-black">
+          <div formArrayName="otc_drugs_history"
+            *ngFor="let med of otc_drugs_history.controls; let i = index;let last=last">
+            <div [formGroupName]="i">
+              <div class="row">
+                <div class="col-md-2 mr-auto">
+                  <p>{{med.value?.drug?.brand_name | titlecase}}</p>
+                </div>
+                <div class="col-md-2">
+                  <mat-form-field appearance="outline">
+                    <input matInput type="text" placeholder="" formControlName="directions">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-2 mr-auto">
+                  <mat-form-field appearance="outline">
+                    <mat-select placeholder="conditions" formControlName="condition"
+                      (openedChange)="onselectConditions($event)">
+                      <mat-form-field style="padding: 0 15px;">
+                        <input matInput placeholder="Search..." [(ngModel)]="search_cond"
+                          [ngModelOptions]="{standalone: true}" (keyup)="indicationFilters(search_cond)">
+                      </mat-form-field>
+                      <mat-option *ngFor="let indication of indicationFilter_list" [value]="indication.indication">
+                        {{indication.indication | titlecase}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                  <mat-form-field appearance="outline">
+                    <input matInput type="text" placeholder="" formControlName="other_indication">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                  <mat-form-field appearance="outline">
+                    <input matInput type="text" placeholder="" formControlName="comments">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-1">
+                  <mat-form-field appearance="outline">
+                    <input matInput type="text" placeholder="" formControlName="prescriber">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-1 mr-auto">
+                  <mat-icon class="red cursor" (click)="remove_otc(i)">delete_outline</mat-icon>
+                </div>
+              </div>
+            </div>
+            <hr class="mr-0" *ngIf="!last">
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

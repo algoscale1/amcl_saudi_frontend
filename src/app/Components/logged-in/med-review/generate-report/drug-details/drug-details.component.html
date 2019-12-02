@@ -1,0 +1,27 @@
+<h1 mat-dialog-title class="text-center">Drug Details</h1>
+
+<div mat-dialog-content>
+  <div *ngIf="data?.adverse_reactions || data?.drug_interactions || data?.dosage_and_administration;else notFound ">
+    <b>Adverse Reactions : </b> &nbsp; 
+    <label style="padding-left:15px;">{{ data?.adverse_reactions }}</label><br>
+
+    <b>Dosage and Administration : </b> &nbsp; 
+    <label style="padding-left:15px;">{{ data?.dosage_and_administration }}</label><br>
+
+    <!-- <b>Drug Interactions : </b> &nbsp; <label style="padding-left:15px;">{{ data?.drug_interactions }}</label> -->
+
+    <b>Contradications : </b> &nbsp; 
+    <label style="padding-left:15px;">{{ data?.contradications }}</label><br>
+
+    <b>Storage : </b> &nbsp; 
+    <label style="padding-left:15px;">{{ data?.storage }}</label><br>
+  </div>
+
+  <ng-template #notFound>
+    <p style="color:red">No Details Found</p>
+  </ng-template>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-raised-button color="warn" (click)="onNoClick()">Close</button>
+</div>

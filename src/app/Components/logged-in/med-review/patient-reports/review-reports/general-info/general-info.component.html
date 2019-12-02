@@ -1,0 +1,89 @@
+<form [formGroup]="patientForm" >
+  <div class="row">
+    <div class="col-md-8 register-body">
+      <div class="row">
+        <div class="col-md-3">
+          <b>First Name</b>
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Input Name" formControlName="fname" required>
+            <mat-error *ngIf="hasError('fname', 'required')">First Name is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <b>Last Name</b>
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Input Name" formControlName="lname" required>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <b>Date of Birth</b>
+          <mat-form-field appearance="outline">
+            <input matInput [matDatepicker]="picker" placeholder="Enter dob" formControlName="dob">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <b>Gender</b>
+          <mat-form-field appearance="outline">
+            <mat-select placeholder="Gender" formControlName="gender">
+              <mat-option *ngFor="let gender of gender" [value]="gender">{{gender}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <b>Weight (lbs)</b>
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Enter value" formControlName="weight">
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <b>Height (ft.)</b>
+          <mat-form-field appearance="outline">
+            <mat-select placeholder="Enter value" formControlName="heightFt">
+              <mat-option *ngFor="let ft of ft" [value]="ft">{{ ft }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <b>Height (inch.)</b>
+          <mat-form-field appearance="outline">
+            <mat-select placeholder="Enter value" formControlName="heightIn">
+              <mat-option *ngFor="let inch of inch" [value]="inch">{{ inch }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <b>Marital Status</b>
+          <mat-form-field appearance="outline">
+            <mat-select placeholder="Enter Status" formControlName="marital_status">
+              <mat-option *ngFor="let marital of marital" [value]="marital">{{marital}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <b>Mailing Address</b>
+      <mat-form-field appearance="outline">
+        <input matInput placeholder="Enter Address" formControlName="mailing_address">
+      </mat-form-field>
+
+      <b>Billing Address</b>
+      <mat-form-field appearance="outline">
+        <input matInput placeholder="Enter Address" formControlName="biling_address">
+      </mat-form-field>
+
+    </div>
+    <div class="col-md-3 register-body mr-auto">
+      <div class="profile-block">
+        <img [src]="imgURL" id="profile" class="patient-img" *ngIf="imgURL">
+        <div class="image">
+          <input class="profilePic" type="file" name="pic" accept="image/*" formControlName="profileImg"
+            (change)=newProfile($event)>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

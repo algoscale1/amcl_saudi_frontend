@@ -1,0 +1,110 @@
+<form [formGroup]="patientForm">
+  <div class="register-body">
+    <div class="row">
+      <div class="col-md-6 mb-20">
+        <div>
+          <u>
+            <h5>Glucose Level</h5>
+          </u>
+          Is the patient diabetic?&nbsp;
+          <mat-radio-group class="smoke" formControlName="is_diabetic">
+            <mat-radio-button value="yes">Yes</mat-radio-button>&nbsp;
+            <mat-radio-button value="no">No</mat-radio-button>
+          </mat-radio-group><br>
+          <div *ngIf="patientForm.value.is_diabetic == 'yes'">
+            <b>Blood Glucose Level (65-100 mg/dL)</b>
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="" formControlName="glucose_level" type="number">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mb-20">
+        <u>
+          <h5>Diet and Lifestyle</h5>
+        </u>
+        Does the patient smoke?&nbsp;
+        <mat-radio-group class="smoke" formControlName="is_smoke">
+          <mat-radio-button [value]="true">Yes</mat-radio-button>&nbsp;
+          <mat-radio-button [value]="false">No</mat-radio-button>
+        </mat-radio-group>
+
+        <div *ngIf="patientForm.value.is_smoke? true: false">
+          <b>What is the frequency of alcohol consumption and caffeine intake</b>
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="frequency_of_alchol">
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <div class="col-md-6" formArrayName="blood_test">
+        <u>
+          <h5>Blood Test and Complete Blood Count (CBC)</h5>
+        </u>
+        <div *ngFor="let key of blood_test.controls; let i=index">
+          <div [formGroupName]="i" class="row">
+            <div class="col-md-5">
+              <mat-form-field appearance="outline">
+                <mat-select placeholder="Select test type" [compareWith]="compareObjects" formControlName="key">
+                  <mat-option *ngFor="let test of bloodTest" [value]="test">
+                    {{test.key}} [{{test.range}}]
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-5">
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="Value" type="number" formControlName="value">
+              </mat-form-field>
+            </div>
+            <div class="col-md-2 pad-10">
+              <button mat-stroked-button color="warn" (click)="removeBlood(i)">X</button>
+            </div>
+          </div>
+        </div>
+        <button mat-flat-button color="basic" class="float-right" *ngIf="bloodNum < 10" (click)="addBlood()">Add
+          Test</button>
+      </div>
+      <div class="col-md-6">
+        <div formArrayName="metabolic_test">
+          <u>
+            <h5>Comprehensive Metabolic Panel (for kidney and liver function)</h5>
+          </u>
+          <div *ngFor="let key of metabolic_test.controls; let i=index">
+            <div [formGroupName]="i" class="row">
+              <div class="col-md-5">
+                <mat-form-field appearance="outline">
+                  <mat-select placeholder="Select test type" [compareWith]="compareObjects" formControlName="key">
+                    <mat-option *ngFor="let test of metabolicTest" [value]="test">
+                      {{test.key}} [{{test.range}}]
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-5">
+                <mat-form-field appearance="outline">
+                  <input matInput placeholder="Value" type="number" formControlName="value">
+                </mat-form-field>
+              </div>
+              <div class="col-md-2 pad-10">
+                <button mat-stroked-button color="warn" (click)="removeMetabolic(i)">X</button>
+              </div>
+            </div>
+          </div>
+          <button mat-flat-button color="basic" class="float-right" *ngIf="metabolicNum < 10"
+            (click)="addMetabolic()">Add Test</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="register-body">
+    <u>
+      <h5>Additional Comments</h5>
+    </u>
+    <mat-form-field appearance="outline">
+      <input matInput placeholder="Enter Comments" formControlName="additional_comment">
+    </mat-form-field>
+  </div>
+</form>

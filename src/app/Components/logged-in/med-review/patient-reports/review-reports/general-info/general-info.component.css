@@ -1,0 +1,24 @@
+.profile-block{
+    border-radius: 10px;
+    background: #DEDEDE;
+    padding: 15px !important;
+    margin: auto;
+}
+
+.patient-img{
+    max-width: 100%;
+    border-radius: 50%;
+    padding-bottom: 20px;
+    margin-bottom: 5px;
+    width: 300px;
+    height: 270px;
+}
+
+.patient-profile{
+    justify-content: center;
+    display: flex;
+}
+
+.profilePic{
+    width: -webkit-fill-available;
+}

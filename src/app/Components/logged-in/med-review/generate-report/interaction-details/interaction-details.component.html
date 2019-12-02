@@ -1,0 +1,22 @@
+<h1 mat-dialog-title class="text-center">General Drug Interaction Details</h1>
+
+<div mat-dialog-content>
+  <div *ngIf="data[0]?.drug_interactions || data[1]?.drug_interactions;else notFound ">
+
+    <b>Drug Interactions : </b> &nbsp; <label class="pl-15"></label>
+    <ul style="list-style: none;">
+      <li *ngFor="let int of data">
+        {{ int.drug_interactions }}
+      </li>
+    </ul>
+
+  </div>
+
+  <ng-template #notFound>
+    <p style="color:red">No Details Found</p>
+  </ng-template>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-raised-button color="warn" (click)="onNoClick()">Close</button>
+</div>
